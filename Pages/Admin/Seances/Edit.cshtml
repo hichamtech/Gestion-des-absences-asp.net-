@@ -1,0 +1,59 @@
+@page
+@model ProjetAspCore.Pages.Seances__referenceScriptLibraries.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Seance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Seance.code_seance" />
+            <div class="form-group">
+                <label asp-for="Seance.libele_seance" class="control-label"></label>
+                <input asp-for="Seance.libele_seance" class="form-control" />
+                <span asp-validation-for="Seance.libele_seance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Seance.date_debut" class="control-label"></label>
+                <input asp-for="Seance.date_debut" class="form-control" />
+                <span asp-validation-for="Seance.date_debut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Seance.date_fin" class="control-label"></label>
+                <input asp-for="Seance.date_fin" class="form-control" />
+                <span asp-validation-for="Seance.date_fin" class="text-danger"></span>
+            </div>
+                 <div class="form-group">
+              
+                <label asp-for="Seance.Matiere" class="control-label"></label>
+                <select asp-for="Seance.Matierecode_matiere" class="form-control" 
+                        asp-items="@Model.MatieresList"></select>
+                <span asp-validation-for="Seance.Matierecode_matiere" class="text-danger"></span>
+          
+            </div>
+            <div class="form-group">
+              
+                <label asp-for="Seance.Salle" class="control-label"></label>
+                <select asp-for="Seance.Sallecode_salle" class="form-control" 
+                        asp-items="@Model.SallesList"></select>
+                <span asp-validation-for="Seance.Sallecode_salle" class="text-danger"></span>
+          
+            </div>
+          
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

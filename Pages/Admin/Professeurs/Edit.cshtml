@@ -1,0 +1,42 @@
+@page
+@model ProjetAspCore.Pages.Professeur__referenceScriptLibraries.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Professeur</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Professeur.code_professeur" />
+            <div class="form-group">
+                <label asp-for="Professeur.nom" class="control-label"></label>
+                <input asp-for="Professeur.nom" class="form-control" />
+                <span asp-validation-for="Professeur.nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Professeur.prenom" class="control-label"></label>
+                <input asp-for="Professeur.prenom" class="form-control" />
+                <span asp-validation-for="Professeur.prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Professeur.email" class="control-label"></label>
+                <input asp-for="Professeur.email" class="form-control" />
+                <span asp-validation-for="Professeur.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

@@ -1,0 +1,81 @@
+@page
+@model ProjetAspCore.PagesSalle.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+    <div class="dashboard" id="dashboard">
+        <div class="row mt-5">
+
+            <div class="col-md-12">
+                <div class="card ">
+                    <h5 class="card-title" style="text-align: center;color:#676a6d;font-weight: bold;"> Liste des Salles</h5>
+                    <div class="card-body align-items-center mt-3">
+
+                       <form class="navbar-form navbar-right">
+					<div class="input-group">
+						<input type="text" value="" class="form-control" placeholder="Chercher....">
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+					</div>
+				        </form>
+			
+                        <table class="table" style="margin-top:20px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                @Html.DisplayNameFor(model => model.Salle[0].numero_salle)
+                                    </th>
+                          
+                                    <th>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.Salle)
+                                {
+
+
+
+
+
+                                    <tr>
+                                        <td>
+                @Html.DisplayFor(modelItem => item.numero_salle)
+                                        </td>
+                                    
+
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_salle*">Modifier</a> 
+
+                                                </div>
+                                               
+                                                <div class="col-md-2">
+
+                                                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_salle">Supprimer</a>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                       <a asp-page="Create" class="btn btn-primary">Nouvel Salle</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+

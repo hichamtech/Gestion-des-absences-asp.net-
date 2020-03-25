@@ -1,0 +1,99 @@
+@page
+@model ProjetAspCore.Pages.Seances__referenceScriptLibraries.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+ <div class="dashboard" id="dashboard">
+        <div class="row mt-5">
+
+            <div class="col-md-12">
+                <div class="card ">
+                    <h5 class="card-title" style="text-align: center;color:#676a6d;font-weight: bold;"> Liste des Seances</h5>
+                    <div class="card-body align-items-center mt-3">
+
+                       <form class="navbar-form navbar-right">
+					<div class="input-group">
+						<input type="text" value="" class="form-control" placeholder="Chercher....">
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+					</div>
+				        </form>
+			
+                        <table class="table" style="margin-top:20px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                @Html.DisplayNameFor(model => model.Seance[0].libele_seance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seance[0].date_debut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seance[0].date_fin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seance[0].Matiere.libele_matiere)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Seance[0].Salle.numero_salle)
+            </th>
+                          
+                                    <th>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.Seance)
+                                {
+
+
+
+
+
+                                    <tr>
+                                        <td>
+                @Html.DisplayFor(modelItem => item.libele_seance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_debut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_fin)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Matiere.libele_matiere)
+            </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.Salle.numero_salle)
+            </td>
+
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_seance">Modifier</a> 
+
+                                                </div>
+                                               
+                                                <div class="col-md-4">
+
+                                                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_seance">Supprimer</a>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                       <a asp-page="Create" class="btn btn-primary">Nouvel Seance</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

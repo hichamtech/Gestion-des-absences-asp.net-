@@ -1,0 +1,61 @@
+@page
+@model ProjetAspCore.Pages.Etudiants__referenceScriptLibraries.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Etudiant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Etudiant.code_etudiant" />
+            <div class="form-group">
+                <label asp-for="Etudiant.nom" class="control-label"></label>
+                <input asp-for="Etudiant.nom" class="form-control" />
+                <span asp-validation-for="Etudiant.nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etudiant.prenom" class="control-label"></label>
+                <input asp-for="Etudiant.prenom" class="form-control" />
+                <span asp-validation-for="Etudiant.prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etudiant.cin" class="control-label"></label>
+                <input asp-for="Etudiant.cin" class="form-control" />
+                <span asp-validation-for="Etudiant.cin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etudiant.date_naissance" class="control-label"></label>
+                <input asp-for="Etudiant.date_naissance" class="form-control" />
+                <span asp-validation-for="Etudiant.date_naissance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etudiant.email" class="control-label"></label>
+                <input asp-for="Etudiant.email" class="form-control" />
+                <span asp-validation-for="Etudiant.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              
+                <label asp-for="Etudiant.Filiere" class="control-label"></label>
+                <select asp-for="Etudiant.Filierecode_filiere" class="form-control" 
+                        asp-items="@Model.FilieresList"></select>
+                <span asp-validation-for="Etudiant.Filierecode_filiere" class="text-danger"></span>
+          
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

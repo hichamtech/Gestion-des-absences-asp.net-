@@ -1,0 +1,93 @@
+@page
+@model ProjetAspCore.Pages.MAtieres__referenceScriptLibraries.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+ <div class="dashboard" id="dashboard">
+        <div class="row mt-5">
+
+            <div class="col-md-12">
+                <div class="card ">
+                    <h5 class="card-title" style="text-align: center;color:#676a6d;font-weight: bold;"> Liste des Matiéres</h5>
+                    <div class="card-body align-items-center mt-3">
+
+                       <form class="navbar-form navbar-right">
+					<div class="input-group">
+						<input type="text" value="" class="form-control" placeholder="Chercher....">
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+					</div>
+				        </form>
+			
+                        <table class="table" style="margin-top:20px;">
+                            <thead>
+                                <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Matiere[0].libele_matiere)
+            </th>
+              <th>
+                @Html.DisplayNameFor(model => model.Matiere[0].nbr_heures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matiere[0].Filiere.libele_filiere)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matiere[0].Professeur.FullName)
+            </th>
+                          
+                                    <th>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.Matiere)
+                                {
+
+
+
+
+
+                                    <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.libele_matiere)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nbr_heures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Filiere.libele_filiere)
+            </td>
+              <td>
+                @Html.DisplayFor(modelItem => item.Professeur.FullName)
+            </td>
+
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_matiere">Modifier</a> 
+
+                                                </div>
+                                               
+                                                <div class="col-md-4">
+
+                                                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_matiere">Supprimer</a>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                       <a asp-page="Create" class="btn btn-primary">Nouvel Matiére</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

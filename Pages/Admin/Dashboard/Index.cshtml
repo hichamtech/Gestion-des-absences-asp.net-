@@ -1,0 +1,55 @@
+﻿@page
+@model ProjetAspCore.Pages.dashboardModel
+@{
+}
+	<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+						<div class="panel-heading">
+							<h3 class="panel-title">Vue Globale</h3>
+							<p class="panel-subtitle"></p>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon"><i class="fas fa-book-reader"></i></span>
+										<p>
+                                         
+											<span class="number">@Model.Nbretudiants</span>
+											<span class="title">Etudiants</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon"><i class="fas fa-chalkboard-teacher"></i></span>
+										<p>
+											<span class="number">@Model.Nbrprofesseurs</span>
+											<span class="title">Professeurs</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon"><i class="fa fa-eye"></i></span>
+										<p>
+											<span class="number">@Model.NbrFilieres</span>
+											<span class="title">Filiéres</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric">
+										<span class="icon"><i class="fa fa-bar-chart"></i></span>
+										<p>
+											<span class="number">@Model.Nbrsalles</span>
+											<span class="title">Salles</span>
+										</p>
+									</div>
+								</div>
+							</div>
+					
+						</div>
+					</div>
+			
+	 

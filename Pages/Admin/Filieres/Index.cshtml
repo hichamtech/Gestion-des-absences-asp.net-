@@ -1,0 +1,81 @@
+@page
+@model ProjetAspCore.Pages.Filieres__referenceScriptLibraries.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+    <div class="dashboard" id="dashboard">
+        <div class="row mt-5">
+
+            <div class="col-md-12">
+                <div class="card ">
+                    <h5 class="card-title" style="text-align: center;color:#676a6d;font-weight: bold;"> Liste des Filieres</h5>
+                    <div class="card-body align-items-center mt-3">
+
+                       <form class="navbar-form navbar-right">
+					<div class="input-group">
+						<input type="text" value="" class="form-control" placeholder="Chercher....">
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+					</div>
+				        </form>
+			
+                        <table class="table" style="margin-top:20px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                          @Html.DisplayNameFor(model => model.Filiere[0].libele_filiere)
+                                    </th>
+                          
+                                    <th>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.Filiere)
+                                {
+
+
+
+
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.libele_filiere)
+                                        </td>
+                                    
+
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_filiere">Modifier</a> 
+
+                                                </div>
+                                               
+                                                <div class="col-md-2">
+
+                                                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_filiere">Supprimer</a>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                       <a asp-page="Create" class="btn btn-primary">Nouvel Filiere</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
