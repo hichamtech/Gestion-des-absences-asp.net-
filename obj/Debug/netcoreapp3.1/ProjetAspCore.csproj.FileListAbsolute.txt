@@ -257,3 +257,7 @@
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml.g.cs
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/_ViewImports.cshtml.g.cs
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Admin/Dashboard/Index.cshtml.g.cs
+/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/RfidCheck.cshtml.g.cs
+/home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.JsonPatch.dll
+/home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Newtonsoft.Json.Bson.dll

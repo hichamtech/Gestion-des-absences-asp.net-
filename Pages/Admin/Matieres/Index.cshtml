@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Index";
+   
+ 
+
 }
 
  <div class="dashboard" id="dashboard">
@@ -35,6 +38,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Matiere[0].Professeur.FullName)
             </th>
+            <th>Nombre Abscences</th>
+            <th>Taux Abscences</th>
                           
                                     <th>Actions</th>
                                     <th></th>
@@ -44,10 +49,12 @@
 
                                 @foreach (var item in Model.Matiere)
                                 {
+                                var nbrabs = item.Seances.Select(a => a.Abscences).Count() ;
+                                
+                                var nbrh = item.nbr_heures;
 
-
-
-
+                                //Decimal taux = (Decimal) ((nbrabs/nbrh)) ;
+                                var taux =  String.Format("{0:P0}",nbrabs/nbrh );
 
                                     <tr>
             <td>
@@ -62,9 +69,17 @@
               <td>
                 @Html.DisplayFor(modelItem => item.Professeur.FullName)
             </td>
+            <td>@nbrabs</td>
+            <td>
+                @String.Format("{0:P0}",@item.getTaux(nbrh,nbrabs) )
+            </td>
 
                                         <td>
                                             <div class="row">
+                                                <div class="col-md-4">
+
+                                                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.code_matiere">Details</a>
+                                                </div>   
                                                 <div class="col-md-4">
                                                     <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_matiere">Modifier</a> 
 
@@ -74,6 +89,7 @@
 
                                                     <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_matiere">Supprimer</a>
                                                 </div>
+                            
 
                                             </div>
                                         </td>

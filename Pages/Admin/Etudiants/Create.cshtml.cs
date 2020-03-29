@@ -41,8 +41,12 @@ namespace ProjetAspCore.Pages.Etudiants__referenceScriptLibraries
              {
                  return Page();
 
+
              }
+            
+          
             _context.Etudiant.Add(Etudiant);
+        
             await _context.SaveChangesAsync();
 
            return RedirectToPage("./Index");

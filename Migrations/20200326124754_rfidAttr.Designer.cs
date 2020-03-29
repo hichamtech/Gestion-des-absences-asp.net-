@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetAspCore.Data;
 
 namespace ProjetAspCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200326124754_rfidAttr")]
+    partial class rfidAttr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,25 +224,12 @@ namespace ProjetAspCore.Migrations
                     b.Property<DateTime>("date_abs")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("etudiantcode_etudiant")
-                        .HasColumnType("int");
-
-                    b.Property<int>("professeucode_professeur")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("professeurcode_professeur")
-                        .HasColumnType("int");
-
-                    b.Property<int>("seancecode_seance")
+                    b.Property<int?>("etudiantcode_etudiant")
                         .HasColumnType("int");
 
                     b.HasKey("code_abs");
 
                     b.HasIndex("etudiantcode_etudiant");
-
-                    b.HasIndex("professeurcode_professeur");
-
-                    b.HasIndex("seancecode_seance");
 
                     b.ToTable("Abscence");
                 });
@@ -439,19 +428,7 @@ namespace ProjetAspCore.Migrations
                 {
                     b.HasOne("ProjetAspCore.Models.Etudiant", "etudiant")
                         .WithMany("Abscences")
-                        .HasForeignKey("etudiantcode_etudiant")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjetAspCore.Models.Professeur", "professeur")
-                        .WithMany()
-                        .HasForeignKey("professeurcode_professeur");
-
-                    b.HasOne("ProjetAspCore.Models.Seance", "seance")
-                        .WithMany("Abscences")
-                        .HasForeignKey("seancecode_seance")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("etudiantcode_etudiant");
                 });
 
             modelBuilder.Entity("ProjetAspCore.Models.Etudiant", b =>

@@ -24,10 +24,20 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
 
         public async Task OnGetAsync()
         {
+            
+          /*  var nbrheure = _context.Matiere.Select(e => e.nbr_heures);
+            var abs = _context.Abscence.Where(e => e.seance.Matierecode_matiere == )
+             = 
+            @(( ((item.Seances.Select(a => a.Abscences).Count() * 2 ) * item.nbr_heures)   )) %
+
+             */
+           
+            
+
             Matiere = await _context.Matiere
             .Include(c => c.Filiere)
             .Include(p => p.Professeur )
-            .AsNoTracking()
+            .Include(a => a.Seances)
             .ToListAsync();
         }
     }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bmQEGKWSYtcDBn0bR9G0VneIawFWr5o6KCaOp+gVFczGHDPmmqilih3618lkUCZ/WVMW9f+aqZI7YmVFLLURsg==",
+  "dgSpecHash": "is2oW1atcbDNRxkTVjsWh+IuOyR5DoDJ5DnEp9nzzrqNNZh7V1JmmSNTsJOL4fnJ0faFHRump4BC9jOJFQ90Cw==",
   "success": true,
   "projectFilePath": "/home/hicham/ProjetAspCore/ProjetAspCore.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "/home/hicham/.nuget/packages/microsoft.aspnetcore.html.abstractions/2.2.0/microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "/home/hicham/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/3.1.2/microsoft.aspnetcore.identity.entityframeworkcore.3.1.2.nupkg.sha512",
     "/home/hicham/.nuget/packages/microsoft.aspnetcore.identity.ui/3.1.2/microsoft.aspnetcore.identity.ui.3.1.2.nupkg.sha512",
+    "/home/hicham/.nuget/packages/microsoft.aspnetcore.jsonpatch/3.1.3/microsoft.aspnetcore.jsonpatch.3.1.3.nupkg.sha512",
+    "/home/hicham/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/3.1.3/microsoft.aspnetcore.mvc.newtonsoftjson.3.1.3.nupkg.sha512",
     "/home/hicham/.nuget/packages/microsoft.aspnetcore.razor/2.2.0/microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "/home/hicham/.nuget/packages/microsoft.aspnetcore.razor.language/3.1.0/microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",
     "/home/hicham/.nuget/packages/microsoft.aspnetcore.razor.runtime/2.2.0/microsoft.aspnetcore.razor.runtime.2.2.0.nupkg.sha512",
@@ -66,6 +68,7 @@
     "/home/hicham/.nuget/packages/mysqlconnector/0.61.0/mysqlconnector.0.61.0.nupkg.sha512",
     "/home/hicham/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/home/hicham/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
+    "/home/hicham/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "/home/hicham/.nuget/packages/nuget.frameworks/4.7.0/nuget.frameworks.4.7.0.nupkg.sha512",
     "/home/hicham/.nuget/packages/pomelo.entityframeworkcore.mysql/3.1.1/pomelo.entityframeworkcore.mysql.3.1.1.nupkg.sha512",
     "/home/hicham/.nuget/packages/pomelo.jsonobject/2.2.1/pomelo.jsonobject.2.2.1.nupkg.sha512",

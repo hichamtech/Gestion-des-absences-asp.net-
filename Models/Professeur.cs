@@ -3,7 +3,9 @@ namespace ProjetAspCore.Models
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-    public class Professeur
+    using Microsoft.AspNetCore.Identity;
+
+public class Professeur 
     {
         public Professeur()
         {

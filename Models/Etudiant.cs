@@ -27,7 +27,14 @@ namespace ProjetAspCore.Models
         public DateTime date_naissance { get; set; }
          [Display(Name = "Email")]
          [EmailAddress]
-        public string email { get; set; }    
+        public string email { get; set; }  
+
+        [Display(Name = "Code RFID")]
+
+         public string code_rfid
+        {
+          get;set;
+        }
         public int Filierecode_filiere {get;set;}
         public  Filiere Filiere { get; set; }
         

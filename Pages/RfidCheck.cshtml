@@ -1,0 +1,32 @@
+﻿@page
+@model ProjetAspCore.Pages.RfidCheckModel
+@{
+}
+<h1>Rfid page</h1>
+
+ <div class="row">
+    <div class="col-md-4">
+        <form id="myForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Rfid" class="control-label"></label>
+                <input asp-for="Rfid" class="form-control" />
+                <span asp-validation-for="Rfid" class="text-danger"></span>
+            </div>
+     
+           
+              <div class="form-group">
+                <input type="submit" value="Check" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+ </div>  
+
+<script>
+    function submitForm() {
+   var frm = document.getElementsByName('myForm')[0];
+   frm.submit(); 
+   frm.reset();  
+   return false; 
+}
+</script>

@@ -29,17 +29,27 @@ namespace ProjetAspCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+     
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
-                
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                ;
+            
             services.AddRazorPages()
          .AddRazorPagesOptions(options => {
+
         options.RootDirectory = "/Pages";
-             
+        options.Conventions.AuthorizeFolder("/Admin")  ;
+         options.Conventions.AllowAnonymousToPage("/RfidCheck");
+        options.Conventions.AllowAnonymousToPage("/Index");
+
+
+  
         ;
         
 
@@ -47,12 +57,15 @@ namespace ProjetAspCore
            services.AddControllers(config =>
     {
         // using Microsoft.AspNetCore.Mvc.Authorization;
-        // using Microsoft.AspNetCore.Authorization;
+         //using Microsoft.AspNetCore.Authorization;
         var policy = new AuthorizationPolicyBuilder()
-                       .RequireAuthenticatedUser()
+                      .RequireAuthenticatedUser()
                        .Build();
         config.Filters.Add(new AuthorizeFilter(policy));
     });
+        services.AddControllers().AddNewtonsoftJson();
+services.AddControllersWithViews().AddNewtonsoftJson();
+services.AddRazorPages().AddNewtonsoftJson();
 
         }
 
@@ -76,7 +89,7 @@ namespace ProjetAspCore
 
             app.UseRouting();
 
-            app.UseAuthentication();
+           app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

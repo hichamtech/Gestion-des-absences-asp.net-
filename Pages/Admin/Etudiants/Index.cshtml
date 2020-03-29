@@ -28,11 +28,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Etudiant[0].email)
             </th>
-               <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Etudiant[0].Filiere.libele_filiere)
             </th>
         
-            <th></th>
+            <th>Nombre Abscence </th>
+              <th></th>
         </tr>
     </thead>
     <tbody>
@@ -53,9 +54,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
-               <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Filiere.libele_filiere)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Abscences.Count)
+            </td>
+            <td>
+            </td>
+             
              
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.code_etudiant">Edit</a> |

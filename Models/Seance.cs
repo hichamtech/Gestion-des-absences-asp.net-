@@ -5,6 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
     public class Seance
     {
+
+        public Seance(){
+            this.Abscences = new HashSet<Abscence>();
+        }
+
         [Key]
          public int code_seance { get; set; }
         
@@ -25,6 +30,8 @@ using System.Collections.Generic;
 
         public int Sallecode_salle {get;set;}
         public virtual Salle Salle { get; set; }
+        public virtual ICollection<Abscence> Abscences { get; set; }
+
     }
         
     
