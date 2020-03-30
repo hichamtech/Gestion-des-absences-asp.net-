@@ -24,6 +24,8 @@
 	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
 	
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
 	<style>
 
   html, body {
@@ -134,96 +136,27 @@
 	
 
 
-<script>
-    /*$(document).ready(function () {
 
-	$('#calendar').fullCalendar({
-      themeSystem: 'bootstrap4',
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
-      },
-      weekNumbers: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: 'https://localhost:5001/Admin/Seances?handler=Events'
-    });	*/
-
-
-
-    /*         var events = [];
-            $.ajax({
-                type: "GET",
-                url: "https://localhost:5001/Admin/Seances?handler=Events",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                        events.push({
-                            title: v.libele_seance,
-                            start: moment(v.date_debut),
-                            end: v.date_fin != null ? moment(v.date_fin) : null,
-
-                        });
-                    })
- 
-                    GenerateCalender(events);
-                },
-                error: function (error) {
-                    alert('failed');
-                }
-            })
- 
-            function GenerateCalenders(events) {
-                $('#calender').fullCalendar('destroy');
-                $('#calender').fullCalendar({
-                    contentHeight: 400,
-                    defaultDate: new Date(),
-                    timeFormat: 'h(:mm)a',
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,basicWeek,basicDay,agenda'
-                    },
-                    eventLimit: true,
-                    eventColor: '#378006',
-                    events: events,
-                    eventClick: function (calEvent, jsEvent, view) {                       
-                        $('#myModal #eventTitle').text(calEvent.title);
-                        var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
-                        if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
-                        }
-                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-                        $('#myModal #pDetails').empty().html($description);
- 
-                        $('#myModal').modal();
-                    }
-                })
-            }
-        })
- 
-			
-
-
-
-  })*/
-
-	
-    </script>
 <script>
         $(document).ready(function () {
             var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+function FetchEventAndRenderCalendar() {
             $.ajax({
                 type: "GET",
                 url: "https://localhost:5001/Admin/Seances?handler=Events",
                 success: function (data) {
                     $.each(data, function (i, v) {
                         events.push({
+                            code_seance: v.code_seance,
                             title: v.libele_seance,
 							description: v.description,
                             start: moment(v.date_debut),
                             end: v.date_fin != null ? moment(v.date_fin) : null,
-							
+                            code_matiere :v.code_matiere,
+					        code_salle : v.code_salle
+                          
 
                         });
                     })
@@ -234,7 +167,8 @@
                     alert('failed');
                 }
             })
- 
+}
+      
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
@@ -249,20 +183,147 @@
                     eventLimit: true,
                     eventColor: '#378006',
                     events: events,
-                    eventClick: function (calEvent, jsEvent, view) {                       
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Debut:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
                         if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>Fin:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
                         }
                         $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
                         $('#myModal #pDetails').empty().html($description);
  
                         $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            code_seance: 0,
+                            title: '',
+                            start: start,
+                            end: end,
+                         
+                        };
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event) {
+                        var data = {
+                            Subject: event.title,
+                            Start: event.start.format('DD/MM/YYYY HH:mm A'),
+                            End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
+                            //code_matiere = event.code_matiere,
+					        //code_salle = event.code_salle
+                 
+                            
+                        };
+                        SaveEvent(data);
                     }
                 })
             }
+ 
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('Are you sure?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'https://localhost:5001/Admin/Seances?handler=Delete',
+                        data: {'SeanceCreate_code_seance': selectedEvent.code_seance},
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                FetchEventAndRenderCalendar();
+                                $('#myModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+                }
+            })
+            $('#dtp1','#dtp2').datetimepicker({
+                format: 'MM/DD/YYYY HH:mm A'
+            });
+            $('#chkIsFullDay').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#divEndDate').hide();
+                }
+                else {
+                    $('#divEndDate').show();
+                }
+            });
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#SeanceCreate_libele_seance').val(selectedEvent.title);
+                    $('#SeanceCreate_date_debut').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
+                    $('#chkIsFullDay').change();
+                    $('#SeanceCreate_date_fin').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#SeanceCreate_Matierecode_matiere').val(selectedEvent.code_matiere);
+                    $('#SeanceCreate_Sallecode_salle').val(selectedEvent.code_salle);
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
+           /* $('#btnSave').click(function () {
+                //Validation/
+                /*if ($('#txtSubject').val().trim() == "") {
+                    alert('Subject required');
+                    return;
+                }
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Start date required');
+                    return;
+                }
+                if ($('#chkIsFullDay').is(':checked') == false && $('#SeanceCreate_date_fin').val().trim() == "") {
+                    alert('End date required');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#SeanceCreate_date_debut').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var endDate = moment($('#SeanceCreate_date_fin').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                   // }
+                }
+            
+                var data = {
+                   // EventID: $('#hdEventID').val(),
+                    title: $('#SeanceCreate_libele_seance').val().trim(),
+                    Start: $('#SeanceCreate_date_debut').val().trim(),
+                    End: $('#chkIsFullDay').is(':checked') ? null : $('#SeanceCreate_date_fin').val().trim(),
+                    //code_matieree = $('#SeanceCreate_Matierecode_matiere').val().trim(),
+					//code_salle = $('#SeanceCreate_Matierecode_matiere').val().trim(),
+                 
+                }
+                SaveEvent(data);
+                // call function for submit data to the server 
+            })*/
+            /*function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: 'https://localhost:5001/Admin/Seances?handler=Ajouter',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }*/
         })
     </script>
 

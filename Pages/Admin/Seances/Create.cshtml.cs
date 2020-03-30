@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjetAspCore.Data;
+using System.Text.Json;
+
 
 using ProjetAspCore.Models;
 
@@ -49,5 +51,6 @@ namespace ProjetAspCore.Pages.Seances__referenceScriptLibraries
 
             return RedirectToPage("./Index");
         }
+       
     }
 }

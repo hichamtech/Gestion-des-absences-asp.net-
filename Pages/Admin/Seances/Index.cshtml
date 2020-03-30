@@ -45,7 +45,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach (var item in Model.Seance)
+                             @foreach (var item in Model.Seance)
                                 {
 
 
@@ -71,12 +71,13 @@
 
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                                     <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_seance">Modifier</a> 
+
 
                                                 </div>
                                                
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
 
                                                     <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_seance">Supprimer</a>
                                                 </div>
@@ -97,7 +98,8 @@
         </div>
 
     </div>
- <div id="calender"></div>
+<h2>Calendrier</h2>
+<div id="calender"></div>
  
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -107,18 +109,95 @@
                 <h4 class="modal-title"><span id="eventTitle"></span></h4>
             </div>
             <div class="modal-body">
+                <button id="btnDelete" class="btn btn-default btn-sm pull-right" >
+                    <span class="glyphicon glyphicon-remove"></span> Supprimer
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="glyphicon glyphicon-pencil"></span> Modifier
+                </button>
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+<div class="container-fluid">
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enregistrer une Seance</h4>
+            </div>
+            <div class="modal-body">
+              
+                <form class="form-horizontal" method="post">
+                        <input type="hidden" id="SeanceCreate_code_seance" value="0" />
 
+                     <div class="form-group">
+                        <label asp-for="SeanceCreate.libele_seance" class="control-label"></label>
+                        <input asp-for="SeanceCreate.libele_seance" class="form-control" />
+                        <span asp-validation-for="SeanceCreate.libele_seance" class="text-danger"></span>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label asp-for="SeanceCreate.date_debut" class="control-label"></label>
+                        <div class="input-group date" id="dtp1">
+                            <input asp-for="SeanceCreate.date_debut" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Is Full Day event</label>
+                        </div>
+                    </div>
+                    
+                     <div class="form-group" id="divEndDate" style="display:none">
+                        <label>End</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+              
+                        <label asp-for="SeanceCreate.Matiere" class="control-label"></label>
+                        <select asp-for="SeanceCreate.Matierecode_matiere" class="form-control" 
+                        asp-items="@Model.MatieresList"></select>
+                        <span asp-validation-for="SeanceCreate.Matierecode_matiere" class="text-danger"></span>
+          
+                    </div>
+                    <div class="form-group">
+              
+                        <label asp-for="SeanceCreate.Salle" class="control-label"></label>
+                        <select asp-for="SeanceCreate.Sallecode_salle" class="form-control" 
+                        asp-items="@Model.SallesList"></select>
+                         <span asp-validation-for="SeanceCreate.Sallecode_salle" class="text-danger"></span>
+          
+                    </div>
+                 
+                <input type="submit" value="Enregistrer" class="btn btn-primary"  asp-page-handler="Create"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
-    
- <script>
-
-
-</script>
+ 
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>}
+ 
