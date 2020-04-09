@@ -5,7 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Enregistrer</h1>
 
 <h4>Etudiant</h4>
 <hr />
@@ -13,6 +13,7 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
                 <label asp-for="Etudiant.nom" class="control-label"></label>
                 <input asp-for="Etudiant.nom" class="form-control" />
@@ -30,7 +31,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Etudiant.date_naissance" class="control-label"></label>
+                <div class="input-group date" id="Etudiant_date_naissance">
                 <input asp-for="Etudiant.date_naissance" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                 <span asp-validation-for="Etudiant.date_naissance" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,7 +63,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Retour</a>
 </div>
 
 

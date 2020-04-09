@@ -4,6 +4,7 @@ namespace ProjetAspCore.Models
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Matiere
     {
@@ -19,9 +20,11 @@ using System.Collections.Generic;
         [Display(Name = "Nombre d'heures")]
         public int nbr_heures{get;set;}
         public int Filierecode_filiere {get;set;}
+        [ForeignKey("Filierecode_filiere")]
+
         public virtual Filiere Filiere { get; set; }
         public int Professeurcode_professeur {get;set;}
-
+        [ForeignKey("Professeurcode_professeur")]
         public virtual Professeur Professeur { get; set; }
         
         public virtual ICollection<Seance> Seances { get; set; }

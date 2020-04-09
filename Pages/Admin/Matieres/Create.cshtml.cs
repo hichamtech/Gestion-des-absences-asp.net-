@@ -21,7 +21,7 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
         }
 
         public SelectList FilieresList { get; set; }
-        public SelectList ProfesseursList {get;set;}
+        public SelectList ProfesseursList { get; set; }
 
         public IActionResult OnGet()
         {
@@ -39,6 +39,7 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
             {
                 return Page();
             }
+
 
             _context.Matiere.Add(Matiere);
             await _context.SaveChangesAsync();

@@ -5,34 +5,119 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Seance</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Seance.libele_seance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Seance.libele_seance)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Seance.date_debut)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Seance.date_debut)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Seance.date_fin)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Seance.date_fin)
-        </dd>
-  
-    </dl>
+<!-- END PANEL INFO -->
+<div class="row">
+    <div class="col-md-12">
+<div class="panel panel-headline">
+	<div class="panel-heading">
+		<h3 class="panel-title">@Html.DisplayNameFor(model => model.Seance.libele_seance)</h3>
+		<p class="panel-subtitle">@Html.DisplayFor(model => model.Seance.libele_seance)</p>
+	</div>
+	<div class="panel-body">
+		<h4>Info Seance</h4>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.DisplayNameFor(model => model.Seance.date_debut) :  @Html.DisplayFor(model => model.Seance.date_debut)<br/>
+            @Html.DisplayNameFor(model => model.Seance.date_fin) : @Html.DisplayFor(model => model.Seance.date_fin)
+
+
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayNameFor(model => model.Seance.Matiere.libele_matiere) :  @Html.DisplayFor(model => model.Seance.Matiere.libele_matiere)<br/>
+            @Html.DisplayNameFor(model => model.Seance.Salle.numero_salle) :  @Html.DisplayFor(model => model.Seance.Salle.numero_salle)<br/>
+        </div>
+         <div class="col-md-4">
+            @Html.DisplayNameFor(model => model.Seance.Matiere.Filiere.libele_filiere) :  @Html.DisplayFor(model => model.Seance.Matiere.Filiere.libele_filiere)<br/>
+            @Html.DisplayNameFor(model => model.Seance.Matiere.Professeur.FullName) :  @Html.DisplayFor(model => model.Seance.Matiere.Professeur.FullName)<br/>
+        </div>
+
+      
+    </div>
+   
+     
+	</div>
+   
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Seance.code_seance">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+		<!-- END PANEL INFO -->
+        </div>
+    
 </div>
+
+
+<div class="row">
+		<div class="col-md-6">
+				<!-- PANEL Présence -->
+			<div class="panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">Liste Présence Séance</h3>
+							<div class="right">
+									<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+									</div>
+					</div>
+					<div class="panel-body">
+                        <table class="table table-hover">
+										<thead>
+											<tr>
+												  <th>Code RFID</th>
+                                                  <th>Nom Complet Etudiant</th>
+                                                
+											</tr>
+										</thead>
+										<tbody>
+											  @foreach (var item in  ViewData["Presence"] as IList<Models.Abscence>)
+                                                   {
+                                                       <tr>
+                                                            <td> @item.etudiant.code_rfid</td>
+                                                            <td> @item.etudiant.FullName</td>
+                                                        </tr>
+                                                  
+
+
+                                                  }
+										</tbody>
+									</table>
+					</div>
+					</div>
+							<!-- END PANEL Présence -->
+			</div>
+       
+		
+ 	<div class="col-md-6">
+				<!-- PANEL Absence -->
+			<div class="panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">Liste Absence Séance</h3>
+							<div class="right">
+									<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+									</div>
+					</div>
+					<div class="panel-body">
+                        <table class="table table-hover">
+										<thead>
+											<tr>
+												  <th>Code RFID </th>
+                                                  <th>Nom Complet Etudiant</th>
+                                                
+											</tr>
+										</thead>
+										<tbody>
+											  @foreach (var item in  ViewData["Absence"] as IList<Models.Etudiant>)
+                                                   {
+                                                       <tr>
+														   <td>@item.code_rfid</td>
+                                                            <td>@item.FullName</td>
+															
+                                                        </tr>
+                                                  
+
+
+                                                  }
+										</tbody>
+									</table>
+					</div>
+					</div>
+ 	</div>
+	 				<!-- END PANEL Absence -->
+			</div>
+</div>   

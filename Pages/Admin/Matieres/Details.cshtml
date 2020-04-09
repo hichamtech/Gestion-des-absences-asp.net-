@@ -5,23 +5,7 @@
     ViewData["Title"] = "Details";
 }
 
-
-
-<div class="dashboard" id="dashboard">
-    <div class="row">
-         <h4>Matiere</h4>
-        <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Matiere.libele_matiere)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Matiere.libele_matiere)
-        </dd>
-
-    
-    </dl>
-    </div>
+@* 
 
 <div class="row mt-5">
     <div class="col-md-12">
@@ -90,7 +74,48 @@
                 </div>
             </div>
      </div>
+</div>*@
+<div class="row">
+    <div class="col-md-12">
+<div class="panel panel-headline">
+	<div class="panel-heading">
+		<h3 class="panel-title">@Html.DisplayNameFor(model => model.Matiere.libele_matiere)</h3>
+		<p class="panel-subtitle">@Html.DisplayFor(model => model.Matiere.libele_matiere)</p>
+	</div>
+	<div class="panel-body">
+		<h4>Liste des Seances</h4>
+        <table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Date Debut</th>
+												<th>Date Fin</th>
+												<th>Salle</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach (var item in  ViewData["idSeanceMatiere"] as IList<Models.Seance>) 
+                                            {
+                                         <tr>
+                                            <td>@item.date_debut</td>
+                                            <td>@item.date_fin</td>
+                                            <td>@item.Salle.numero_salle</td>
+                                            <td></td>
+
+                                       
+                                    
+                                        </tr>
+
+                                         }
+										
+										</tbody>
+									</table>
+	            </div>
+            </div>
+		<!-- END PANEL HEADLINE -->
+        </div>
+    </div>
 </div>
+
 
  
                

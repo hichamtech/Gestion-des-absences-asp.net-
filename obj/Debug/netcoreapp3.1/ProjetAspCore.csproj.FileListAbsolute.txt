@@ -131,7 +131,6 @@
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Admin/Seances/Details.cshtml.g.cs
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Admin/Seances/Edit.cshtml.g.cs
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Admin/Seances/Index.cshtml.g.cs
-/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_Layout2.cshtml.g.cs
 /home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Razor.Language.dll
 /home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.CodeAnalysis.dll
 /home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.CodeAnalysis.CSharp.dll
@@ -261,3 +260,7 @@
 /home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.JsonPatch.dll
 /home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /home/hicham/ProjetAspCore/bin/Debug/netcoreapp3.1/Newtonsoft.Json.Bson.dll
+/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_ProfLayout.cshtml.g.cs
+/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_AdminLayout.cshtml.g.cs
+/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/espace_professeur/Dashboard/Index.cshtml.g.cs
+/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Routes.cshtml.g.cs

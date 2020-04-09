@@ -11,38 +11,60 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ProjetAspCore.Data;
+using ProjetAspCore.Models;
 
 namespace ProjetAspCore.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        
+
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        private readonly ApplicationDbContext _db;
+
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext db,
+
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
+            _db = db;
+
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
+        public SelectList ProfList { get; set; }
+
+        public SelectList RolesList { get; set; }
+
+
         public string ReturnUrl { get; set; }
 
+
+
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
 
         public class InputModel
         {
@@ -61,10 +83,34 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public ApplicationUser applicationUser { get; set; }
+
+            public int code_professeur { get; set; }
+            public Professeur Professeur { get; set; }
+
+
+            public SelectList RolesList { get; set; }
+
+
+
+
+
+
+
         }
+
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
+            //RolesList = new SelectList(_.Filiere, "code_filiere", "libele_filiere");
+            //RolesList = new SelectList(_roleManager.);
+
+            RolesList = new SelectList(_roleManager.Roles);
+            ProfList = new SelectList(_db.Professeur, "code_professeur", "nom");
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -75,22 +121,44 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser
+                {
+
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    code_professeur = Input.applicationUser.code_professeur
+
+
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync(GestionRoles.AdminUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(GestionRoles.AdminUser));
+
+                    }
+                    if (!await _roleManager.RoleExistsAsync(GestionRoles.ProfUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(GestionRoles.ProfUser));
+
+
+                    }
+
+                    await _userManager.AddToRoleAsync(user, GestionRoles.ProfUser);
+
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code },
-                        protocol: Request.Scheme);
+                    /* var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                     var callbackUrl = Url.Page(
+                         "/Account/ConfirmEmail",
+                         pageHandler: null,
+                         values: new { area = "Identity", userId = user.Id, code = code },
+                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");*/
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -101,11 +169,13 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
+
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+
             }
 
             // If we got this far, something failed, redisplay form

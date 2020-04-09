@@ -25,6 +25,7 @@
 	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
 	
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
 	<style>
 
@@ -50,7 +51,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a asp-area="" asp-page="/Index"><img src="" alt="Logo Controle Assiduite" class="img-responsive logo" height="20px"></a>
+				<a asp-area="" asp-page="/Index"><img src="~/assets/img/logo.png" alt="Logo Controle Assiduite" class="img-responsive logo"  style="width: auto;height: 20px;"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -96,11 +97,11 @@
 						<li><a asp-area="" asp-page="/Admin/Dashboard/Index" class=""><i class="lnr lnr-home"></i> <span>Tableau de Bord</span></a></li>
 						<li><a asp-area="" asp-page="/Admin/Etudiants/Index" class=""><i class="lnr lnr-code"></i> <span>Etudiants</span></a></li>
 						<li><a asp-area="" asp-page="/Admin/Professeurs/Index" class=""><i class="lnr lnr-chart-bars"></i> <span>Professeurs</span></a></li>
-						<li><a asp-area="" asp-page="/Admin/Matieres/Index" class=""><i class="lnr lnr-cog"></i> <span>Matières</span></a></li>
+						<li><a asp-area="" asp-page="/Admin/Matieres/Index" class=""><i class="lnr lnr-book"></i> <span>Matières</span></a></li>
 						<li><a asp-area="" asp-page="/Admin/Filieres/Index" class=""><i class="lnr lnr-alarm"></i> <span>Filières</span></a></li>
 						<li><a asp-area="" asp-page="/Admin/Seances/Index" class=""><i class="lnr lnr-dice"></i> <span>Séances</span></a></li>
-						<li><a asp-area="" asp-page="/Admin/Salles/Index" class=""><i class="lnr lnr-dice"></i> <span>Salles</span></a></li>
-
+						<li><a asp-area="" asp-page="/Admin/Salles/Index" class=""><i class="lnr lnr-apartment"></i> <span>Salles</span></a></li>
+                        <li><a asp-area="" asp-page="/Identity/Account/Register" class=""><i class="lnr lnr-users"></i> <span>Utilisateurs</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -132,6 +133,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 	
 
@@ -247,7 +249,7 @@ function FetchEventAndRenderCalendar() {
                     })
                 }
             })
-            $('#dtp1','#dtp2').datetimepicker({
+            $('#Etudiant_date_naissance','#dtp2').datetimepicker({
                 format: 'MM/DD/YYYY HH:mm A'
             });
             $('#chkIsFullDay').change(function () {

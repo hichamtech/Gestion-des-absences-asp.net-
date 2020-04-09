@@ -3,10 +3,13 @@
 @inject UserManager<IdentityUser> UserManager
 
 @{
-if (SignInManager.IsSignedIn(User))
+if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
- Layout = "_Layout2";    
-}else{
+ Layout = "_AdminLayout";    
+}else if(User.Identity.IsAuthenticated && User.IsInRole("Prof")){
+ Layout = "_ProfLayout";
+}
+else{
     Layout = "_Layout";
 
 }

@@ -2,26 +2,30 @@
 @model ProjetAspCore.Pages.RfidCheckModel
 @{
 }
-<h1>Rfid page</h1>
-
- <div class="row">
-    <div class="col-md-4">
-        <form id="myForm" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Rfid" class="control-label"></label>
-                <input asp-for="Rfid" class="form-control" />
-                <span asp-validation-for="Rfid" class="text-danger"></span>
-            </div>
-     
-           
-              <div class="form-group">
-                <input type="submit" value="Check" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
- </div>  
-
+  
+ <div id="wrapper">
+		<div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<div class="auth-box lockscreen clearfix">
+					<div class="content">
+						<h1 class="sr-only">RFID Checking</h1>
+						<div class="logo text-center"><img src="~/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
+						<div class="user text-center">
+							<img src="~/assets/img/user-medium.png" class="img-circle" alt="Avatar">
+                            <label asp-for="Rfid" class="control-label"></label>
+						</div>
+						<form id="myForm" method="post">
+							<div class="input-group">
+                                 <input asp-for="Rfid" class="form-control" placeholder="Saisir votre code rfid....."/>
+								<span class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i></button></span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+ </div>
+ 
 <script>
     function submitForm() {
    var frm = document.getElementsByName('myForm')[0];
@@ -29,4 +33,4 @@
    frm.reset();  
    return false; 
 }
-</script>
+</script>        

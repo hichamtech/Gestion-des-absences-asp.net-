@@ -78,6 +78,10 @@ namespace ProjetAspCore.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("Email")
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
@@ -128,6 +132,8 @@ namespace ProjetAspCore.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -156,12 +162,10 @@ namespace ProjetAspCore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -198,12 +202,10 @@ namespace ProjetAspCore.Migrations
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -225,10 +227,7 @@ namespace ProjetAspCore.Migrations
                     b.Property<int>("etudiantcode_etudiant")
                         .HasColumnType("int");
 
-                    b.Property<int>("professeucode_professeur")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("professeurcode_professeur")
+                    b.Property<int>("professeurcode_professeur")
                         .HasColumnType("int");
 
                     b.Property<int>("seancecode_seance")
@@ -335,6 +334,9 @@ namespace ProjetAspCore.Migrations
                     b.Property<string>("prenom")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("telephone")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.HasKey("code_professeur");
 
                     b.ToTable("Professeur");
@@ -382,6 +384,19 @@ namespace ProjetAspCore.Migrations
                     b.HasIndex("Sallecode_salle");
 
                     b.ToTable("Seance");
+                });
+
+            modelBuilder.Entity("ProjetAspCore.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("code_professeur")
+                        .HasColumnType("int");
+
+                    b.HasIndex("code_professeur")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -445,7 +460,9 @@ namespace ProjetAspCore.Migrations
 
                     b.HasOne("ProjetAspCore.Models.Professeur", "professeur")
                         .WithMany()
-                        .HasForeignKey("professeurcode_professeur");
+                        .HasForeignKey("professeurcode_professeur")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProjetAspCore.Models.Seance", "seance")
                         .WithMany("Abscences")
@@ -489,6 +506,15 @@ namespace ProjetAspCore.Migrations
                     b.HasOne("ProjetAspCore.Models.Salle", "Salle")
                         .WithMany("Seances")
                         .HasForeignKey("Sallecode_salle")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjetAspCore.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("ProjetAspCore.Models.Professeur", "Professeur")
+                        .WithOne("User")
+                        .HasForeignKey("ProjetAspCore.Models.ApplicationUser", "code_professeur")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

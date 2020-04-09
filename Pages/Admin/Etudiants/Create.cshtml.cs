@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProjetAspCore.Pages.Etudiants__referenceScriptLibraries
 {
-    public class CreateModel : PageModel 
+    public class CreateModel : PageModel
     {
         private readonly ProjetAspCore.Data.ApplicationDbContext _context;
 
@@ -34,25 +34,27 @@ namespace ProjetAspCore.Pages.Etudiants__referenceScriptLibraries
         [BindProperty]
         public Etudiant Etudiant { get; set; }
 
-    
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-             {
-                 return Page();
+            {
+                return Page();
 
 
-             }
-            
-          
+            }
+            //Génération Code RFID
+            Random random = new Random();
+            Etudiant.code_rfid = Etudiant.cin + "-" + Etudiant.Filierecode_filiere + "-" + random.Next(0, 100);
+
             _context.Etudiant.Add(Etudiant);
-        
+
             await _context.SaveChangesAsync();
 
-           return RedirectToPage("./Index");
+            return RedirectToPage("./Index");
 
-       
 
+
+        }
     }
-}
 }

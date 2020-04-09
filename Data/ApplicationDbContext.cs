@@ -25,6 +25,8 @@ namespace ProjetAspCore.Data
 
     public  DbSet<ProjetAspCore.Models.Abscence> Abscence { get; set; }
 
+
+
      protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

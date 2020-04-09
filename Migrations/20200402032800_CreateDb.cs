@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjetAspCore.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,31 +20,6 @@ namespace ProjetAspCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +43,8 @@ namespace ProjetAspCore.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     nom = table.Column<string>(nullable: true),
                     prenom = table.Column<string>(nullable: true),
-                    email = table.Column<string>(nullable: true)
+                    email = table.Column<string>(nullable: true),
+                    telephone = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,6 +86,92 @@ namespace ProjetAspCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Etudiant",
+                columns: table => new
+                {
+                    code_etudiant = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    nom = table.Column<string>(nullable: true),
+                    prenom = table.Column<string>(nullable: true),
+                    cin = table.Column<string>(nullable: true),
+                    date_naissance = table.Column<DateTime>(nullable: false),
+                    email = table.Column<string>(nullable: true),
+                    code_rfid = table.Column<string>(nullable: true),
+                    Filierecode_filiere = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Etudiant", x => x.code_etudiant);
+                    table.ForeignKey(
+                        name: "FK_Etudiant_Filiere_Filierecode_filiere",
+                        column: x => x.Filierecode_filiere,
+                        principalTable: "Filiere",
+                        principalColumn: "code_filiere",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    code_professeur = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Professeur_code_professeur",
+                        column: x => x.code_professeur,
+                        principalTable: "Professeur",
+                        principalColumn: "code_professeur",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Matiere",
+                columns: table => new
+                {
+                    code_matiere = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    libele_matiere = table.Column<string>(nullable: true),
+                    nbr_heures = table.Column<int>(nullable: false),
+                    Filierecode_filiere = table.Column<int>(nullable: false),
+                    Professeurcode_professeur = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Matiere", x => x.code_matiere);
+                    table.ForeignKey(
+                        name: "FK_Matiere_Filiere_Filierecode_filiere",
+                        column: x => x.Filierecode_filiere,
+                        principalTable: "Filiere",
+                        principalColumn: "code_filiere",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Matiere_Professeur_Professeurcode_professeur",
+                        column: x => x.Professeurcode_professeur,
+                        principalTable: "Professeur",
+                        principalColumn: "code_professeur",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -134,8 +196,8 @@ namespace ProjetAspCore.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -179,8 +241,8 @@ namespace ProjetAspCore.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -192,78 +254,6 @@ namespace ProjetAspCore.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Etudiant",
-                columns: table => new
-                {
-                    code_etudiant = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    nom = table.Column<string>(nullable: true),
-                    prenom = table.Column<string>(nullable: true),
-                    cin = table.Column<string>(nullable: true),
-                    date_naissance = table.Column<DateTime>(nullable: false),
-                    email = table.Column<string>(nullable: true),
-                    Filierecode_filiere = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Etudiant", x => x.code_etudiant);
-                    table.ForeignKey(
-                        name: "FK_Etudiant_Filiere_Filierecode_filiere",
-                        column: x => x.Filierecode_filiere,
-                        principalTable: "Filiere",
-                        principalColumn: "code_filiere",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Matiere",
-                columns: table => new
-                {
-                    code_matiere = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    libele_matiere = table.Column<string>(nullable: true),
-                    nbr_heures = table.Column<int>(nullable: false),
-                    Filierecode_filiere = table.Column<int>(nullable: false),
-                    Professeurcode_professeur = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Matiere", x => x.code_matiere);
-                    table.ForeignKey(
-                        name: "FK_Matiere_Filiere_Filierecode_filiere",
-                        column: x => x.Filierecode_filiere,
-                        principalTable: "Filiere",
-                        principalColumn: "code_filiere",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Matiere_Professeur_Professeurcode_professeur",
-                        column: x => x.Professeurcode_professeur,
-                        principalTable: "Professeur",
-                        principalColumn: "code_professeur",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Abscence",
-                columns: table => new
-                {
-                    code_abs = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    date_abs = table.Column<DateTime>(nullable: false),
-                    etudiantcode_etudiant = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Abscence", x => x.code_abs);
-                    table.ForeignKey(
-                        name: "FK_Abscence_Etudiant_etudiantcode_etudiant",
-                        column: x => x.etudiantcode_etudiant,
-                        principalTable: "Etudiant",
-                        principalColumn: "code_etudiant",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,10 +285,54 @@ namespace ProjetAspCore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Abscence",
+                columns: table => new
+                {
+                    code_abs = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    date_abs = table.Column<DateTime>(nullable: false),
+                    etudiantcode_etudiant = table.Column<int>(nullable: false),
+                    seancecode_seance = table.Column<int>(nullable: false),
+                    professeurcode_professeur = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Abscence", x => x.code_abs);
+                    table.ForeignKey(
+                        name: "FK_Abscence_Etudiant_etudiantcode_etudiant",
+                        column: x => x.etudiantcode_etudiant,
+                        principalTable: "Etudiant",
+                        principalColumn: "code_etudiant",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Abscence_Professeur_professeurcode_professeur",
+                        column: x => x.professeurcode_professeur,
+                        principalTable: "Professeur",
+                        principalColumn: "code_professeur",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Abscence_Seance_seancecode_seance",
+                        column: x => x.seancecode_seance,
+                        principalTable: "Seance",
+                        principalColumn: "code_seance",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Abscence_etudiantcode_etudiant",
                 table: "Abscence",
                 column: "etudiantcode_etudiant");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Abscence_professeurcode_professeur",
+                table: "Abscence",
+                column: "professeurcode_professeur");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Abscence_seancecode_seance",
+                table: "Abscence",
+                column: "seancecode_seance");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -335,6 +369,12 @@ namespace ProjetAspCore.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_code_professeur",
+                table: "AspNetUsers",
+                column: "code_professeur",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -384,10 +424,10 @@ namespace ProjetAspCore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Seance");
+                name: "Etudiant");
 
             migrationBuilder.DropTable(
-                name: "Etudiant");
+                name: "Seance");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

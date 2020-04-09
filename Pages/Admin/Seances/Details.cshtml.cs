@@ -29,7 +29,34 @@ namespace ProjetAspCore.Pages.Seances__referenceScriptLibraries
                 return NotFound();
             }
 
-            Seance = await _context.Seance.FirstOrDefaultAsync(m => m.code_seance == id);
+            Seance = await _context.Seance.Include(e => e.Matiere)
+                                           .Include(e => e.Abscences)
+                                           .Include(e => e.Salle)
+                                           .Include(e => e.Matiere.Filiere)
+                                           .Include(e => e.Matiere.Professeur)
+            .FirstOrDefaultAsync(m => m.code_seance == id);
+
+            ViewData["Presence"] = _context.Abscence
+                           .Where(a => a.seance.code_seance == id && a.seance.Matierecode_matiere ==
+                               Seance.Matierecode_matiere && a.seance.Salle.code_salle == Seance.Sallecode_salle
+                                && Seance.date_debut.Date == a.seance.Abscences.FirstOrDefault().date_abs.Date
+                               )
+                           .Include(e => e.etudiant)
+                           .Include(F => F.etudiant.Filiere)
+                           .Include(P => P.professeur)
+                           .ToList();
+
+            ViewData["Absence"] = _context.Etudiant
+                     .Where(c => !_context.Abscence
+                    .Select(b => b.etudiantcode_etudiant)
+                     .Contains(c.code_etudiant)
+                     && c.Filiere.Matieres.FirstOrDefault().Seances.FirstOrDefault().code_seance == id
+
+                     )
+                     .Include(e => e.Filiere)
+                     .Include(e => e.Abscences)
+                     .Include(e => e.Filiere.Matieres)
+                     .ToList();
 
             if (Seance == null)
             {

@@ -26,6 +26,8 @@ namespace ProjetAspCore
 
         public IConfiguration Configuration { get; }
 
+        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,8 +36,7 @@ namespace ProjetAspCore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddRoles<IdentityRole>()
+            services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 ;
@@ -44,7 +45,7 @@ namespace ProjetAspCore
          .AddRazorPagesOptions(options => {
 
         options.RootDirectory = "/Pages";
-        options.Conventions.AuthorizeFolder("/Admin")  ;
+        options.Conventions.AuthorizeFolder("/Admin") ;
          options.Conventions.AllowAnonymousToPage("/RfidCheck");
         options.Conventions.AllowAnonymousToPage("/Index");
 
@@ -97,5 +98,10 @@ services.AddRazorPages().AddNewtonsoftJson();
                 endpoints.MapRazorPages();
             });
         }
+
+
+        
     }
+
+    
 }

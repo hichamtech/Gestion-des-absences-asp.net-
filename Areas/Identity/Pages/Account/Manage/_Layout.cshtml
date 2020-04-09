@@ -2,13 +2,17 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
-if (SignInManager.IsSignedIn(User))
+if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
- Layout = "_Layout2";    
-}else{
-    Layout = "_Layout1";
+ Layout = "_AdminLayout";    
+}else if(User.Identity.IsAuthenticated && User.IsInRole("Prof")){
+ Layout = "_ProfLayout";
+}
+else{
+    Layout = "_Layout";
 
-}}
+}
+}
 
 <h1>Manage your account</h1>
 

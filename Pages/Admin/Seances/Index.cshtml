@@ -70,17 +70,19 @@
             </td>
 
                                         <td>
+                                        
                                             <div class="row">
-                                                <div class="col-md-5">
-                                                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_seance">Modifier</a> 
-
-
+                                                <div class="col-md-4">
+                                                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.code_seance">Details</a>
                                                 </div>
-                                               
-                                                <div class="col-md-5">
-
+                                                <div class="col-md-4">
+                                                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.code_seance">Modifier</a> 
+                                                </div>
+                                                <div class="col-md-4">
                                                     <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.code_seance">Supprimer</a>
                                                 </div>
+                    
+
 
                                             </div>
                                         </td>
@@ -98,7 +100,7 @@
         </div>
 
     </div>
-<h2>Calendrier</h2>
+<h2><span class="lnr lnr-calendar-full"></span></h2>
 <div id="calender"></div>
  
 <div id="myModal" class="modal fade" role="dialog">
@@ -109,16 +111,16 @@
                 <h4 class="modal-title"><span id="eventTitle"></span></h4>
             </div>
             <div class="modal-body">
-                <button id="btnDelete" class="btn btn-default btn-sm pull-right" >
+                @*<button id="btnDelete" class="btn btn-default btn-sm pull-right" >
                     <span class="glyphicon glyphicon-remove"></span> Supprimer
                 </button>
                 <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
                     <span class="glyphicon glyphicon-pencil"></span> Modifier
-                </button>
+                </button>*@
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
@@ -153,14 +155,14 @@
                     </div>
                      <div class="form-group">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Is Full Day event</label>
+                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Toute la journée ?</label>
                         </div>
                     </div>
                     
                      <div class="form-group" id="divEndDate" style="display:none">
-                        <label>End</label>
+                        <label>Fin</label>
                         <div class="input-group date" id="dtp2">
-                            <input type="text" id="txtEnd" class="form-control" />
+                            <input asp-for="SeanceCreate.date_fin" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>

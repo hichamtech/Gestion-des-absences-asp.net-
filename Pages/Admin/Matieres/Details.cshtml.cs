@@ -22,6 +22,9 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
 
         public Matiere Matiere { get; set; }
 
+        public Seance Seance { get; set; }
+
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -31,16 +34,16 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
 
 
             //
-             
-            ViewData["idSeanceMatiere"]    = _context.Seance.Where(s => s.Matierecode_matiere ==id)
+
+            ViewData["idSeanceMatiere"] = _context.Seance.Where(s => s.Matierecode_matiere == id)
                                             .Include(s => s.Salle)
                                             .Include(a => a.Abscences)
 
                                             .ToList();
-           /*  var DateSeanceMatiere =   _context.Seance
-                                     .Where(s => s.Matierecode_matiere ==id)                               
-                                    .Select(a => a.date_debut).ToList() ;*/
-    
+            /*  var DateSeanceMatiere =   _context.Seance
+                                      .Where(s => s.Matierecode_matiere ==id)                               
+                                     .Select(a => a.date_debut).ToList() ;*/
+
             ViewData["abs"] = _context.Abscence
                             .Where(a => a.seance.Matierecode_matiere == id)
                             .Include(e => e.etudiant)
@@ -48,15 +51,14 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
                             .Include(P => P.professeur)
                             .ToList();
 
-            List<int> vacantApartmentIDs = new List<int> { 4, 6, 7, 8 };
             var idEtd = _context.Etudiant.Select(e => e.code_etudiant).ToList();
 
             /*ViewData["absence"] = from a in _context.Abscence
             where !idEtd.Contains(a.etudiantcode_etudiant) 
          
-                 select a;     */           
-            var a =  _context.Abscence.Select(s => s.etudiantcode_etudiant).ToList();
-        
+                 select a;     */
+            var a = _context.Abscence.Select(s => s.etudiantcode_etudiant).ToList();
+
             /*ViewData["absence"] =    (from u in _context.Abscence.AsEnumerable()
                 where u.seance.Matierecode_matiere == id &&
              !Matiere.F .Any(s => u.etudiantcode_etudiant.Contains(s))
