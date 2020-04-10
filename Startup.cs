@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjetAspCore
 {
@@ -26,49 +27,53 @@ namespace ProjetAspCore
 
         public IConfiguration Configuration { get; }
 
-        
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-     
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 ;
-            
+
             services.AddRazorPages()
-         .AddRazorPagesOptions(options => {
+         .AddRazorPagesOptions(options =>
+         {
 
-        options.RootDirectory = "/Pages";
-        options.Conventions.AuthorizeFolder("/Admin") ;
-         options.Conventions.AllowAnonymousToPage("/RfidCheck");
-        options.Conventions.AllowAnonymousToPage("/Index");
+             options.RootDirectory = "/Pages";
+             options.Conventions.AuthorizeFolder("/Admin");
+             options.Conventions.AllowAnonymousToPage("/RfidCheck");
+             options.Conventions.AllowAnonymousToPage("/Index");
 
 
-  
-        ;
-        
 
-        });
-           services.AddControllers(config =>
-    {
-        // using Microsoft.AspNetCore.Mvc.Authorization;
+             ;
+
+
+         });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddControllers(config =>
+     {
+         // using Microsoft.AspNetCore.Mvc.Authorization;
          //using Microsoft.AspNetCore.Authorization;
-        var policy = new AuthorizationPolicyBuilder()
-                      .RequireAuthenticatedUser()
-                       .Build();
-        config.Filters.Add(new AuthorizeFilter(policy));
-    });
-        services.AddControllers().AddNewtonsoftJson();
-services.AddControllersWithViews().AddNewtonsoftJson();
-services.AddRazorPages().AddNewtonsoftJson();
+         var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                         .Build();
+         config.Filters.Add(new AuthorizeFilter(policy));
+     });
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddRazorPages().AddNewtonsoftJson();
 
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -90,7 +95,7 @@ services.AddRazorPages().AddNewtonsoftJson();
 
             app.UseRouting();
 
-           app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -100,8 +105,8 @@ services.AddRazorPages().AddNewtonsoftJson();
         }
 
 
-        
+
     }
 
-    
+
 }

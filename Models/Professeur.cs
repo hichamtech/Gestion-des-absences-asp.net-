@@ -4,6 +4,7 @@ namespace ProjetAspCore.Models
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Identity;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Professeur
     {
@@ -39,6 +40,9 @@ namespace ProjetAspCore.Models
             }
         }
 
+        public string code_user { get; set; }
+
+        [ForeignKey("code_user")]
         public virtual ApplicationUser User { get; set; }
 
 

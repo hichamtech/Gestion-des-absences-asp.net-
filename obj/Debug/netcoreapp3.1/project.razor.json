@@ -20716,11 +20716,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/hicham/ProjetAspCore/Pages/RfidCheck.cshtml",
-      "TargetPath": "Pages\\RfidCheck.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "/home/hicham/ProjetAspCore/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\Account\\RegisterConfirmation.cshtml",
       "FileKind": "mvc"

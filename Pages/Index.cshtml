@@ -6,3 +6,42 @@
 
 	
 	 
+<div class="row">
+	<div class="col-md-12">		<!-- PANEL HEADLINE -->
+	
+				<div class="auth-box lockscreen clearfix">
+					<div class="content">
+					<partial name="_LoginPartial" />
+
+						<div class="logo text-center">
+                            <img src="~/assets/img/logo.png" alt="Klorofil Logo">
+                        </div>
+						<div class="user text-center">
+							<img src="~/assets/img/rfid-icon.jpg" class="img-circle" alt="rfid" style="width: 40px;height: 30px;" >
+                            <label asp-for="Rfid" class="control-label"></label>
+						</div>
+						<form id="myForm" method="post">
+							<div class="input-group">
+                                 <input asp-for="Rfid" class="form-control" placeholder="Saisir votre code rfid....."/>
+								<span class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i></button></span>
+							</div>
+						</form>
+					</div>
+				</div>	
+	</div>
+</div>
+				
+		
+							<!-- END PANEL HEADLINE -->
+    	
+
+
+
+<script>
+    function submitForm() {
+   var frm = document.getElementsByName('myForm')[0];
+   frm.submit(); 
+   frm.reset();  
+   return false; 
+}
+</script>        

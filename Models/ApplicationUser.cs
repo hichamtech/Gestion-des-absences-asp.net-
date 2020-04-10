@@ -10,10 +10,14 @@ namespace ProjetAspCore.Models
     {
 
 
-        public int code_professeur { get; set; }
-        [ForeignKey("code_professeur")]
-        public virtual Professeur Professeur { get; set; }
 
+        [Display(Name = "Nom")]
+        public string nom { get; set; }
+        [Display(Name = "Prenom")]
+        public string prenom { get; set; }
+        public char status { get; set; }
+
+        public virtual Professeur Professeur { get; set; }
 
 
     }

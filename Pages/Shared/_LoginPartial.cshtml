@@ -2,9 +2,10 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
 {
+    <ul class="navbar-nav">
     <div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
     <li class="dropdown">
@@ -20,14 +21,20 @@
 	</li>
     <ul>
     </div>
+     </ul>
+  
 }
 else
-{
-    <li class="nav-item">
+{ 
+    @*<li class="nav-item">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    </li>*@
+    <div class="float-right">
+        <div class="row">
+            <div class="col-md-1">
+                 <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Login">S'authentifier</a>
+            </div>
+        </div>
+    </div>
 }
-</ul>
+

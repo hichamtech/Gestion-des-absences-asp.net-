@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 30 mars 2020 à 02:53
+-- Généré le : ven. 10 avr. 2020 à 03:50
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.3
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `controle_assiduite_v4`
+-- Base de données : `controle_assiduite_v5`
 --
 
 -- --------------------------------------------------------
@@ -32,20 +32,9 @@ CREATE TABLE `Abscence` (
   `code_abs` int(11) NOT NULL,
   `date_abs` datetime(6) NOT NULL,
   `etudiantcode_etudiant` int(11) NOT NULL,
-  `professeurcode_professeur` int(11) DEFAULT NULL,
-  `seancecode_seance` int(11) NOT NULL DEFAULT 0,
-  `professeucode_professeur` int(11) NOT NULL DEFAULT 0
+  `seancecode_seance` int(11) NOT NULL,
+  `professeurcode_professeur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `Abscence`
---
-
-INSERT INTO `Abscence` (`code_abs`, `date_abs`, `etudiantcode_etudiant`, `professeurcode_professeur`, `seancecode_seance`, `professeucode_professeur`) VALUES
-(10, '2020-03-26 21:46:25.204908', 1, 1, 1, 0),
-(11, '2020-03-27 22:58:27.381119', 1, 1, 1, 0),
-(12, '2020-03-27 22:58:32.249548', 1, 1, 1, 0),
-(13, '2020-03-27 22:58:34.377068', 2, 2, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -73,6 +62,14 @@ CREATE TABLE `AspNetRoles` (
   `ConcurrencyStamp` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `AspNetRoles`
+--
+
+INSERT INTO `AspNetRoles` (`Id`, `Name`, `NormalizedName`, `ConcurrencyStamp`) VALUES
+('8aabc939-aa50-4c42-86fe-e76263352737', 'Prof', 'PROF', '6fcab291-3b01-4f66-96a4-e595bc307c9a'),
+('fa175f7f-3115-42b5-8866-eff7fb34036a', 'Admin', 'ADMIN', 'ba19cbc7-c2b7-4b85-aeb8-141253f4233d');
+
 -- --------------------------------------------------------
 
 --
@@ -93,8 +90,8 @@ CREATE TABLE `AspNetUserClaims` (
 --
 
 CREATE TABLE `AspNetUserLogins` (
-  `LoginProvider` varchar(128) NOT NULL,
-  `ProviderKey` varchar(128) NOT NULL,
+  `LoginProvider` varchar(255) NOT NULL,
+  `ProviderKey` varchar(255) NOT NULL,
   `ProviderDisplayName` longtext DEFAULT NULL,
   `UserId` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -109,6 +106,15 @@ CREATE TABLE `AspNetUserRoles` (
   `UserId` varchar(255) NOT NULL,
   `RoleId` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `AspNetUserRoles`
+--
+
+INSERT INTO `AspNetUserRoles` (`UserId`, `RoleId`) VALUES
+('1def75b3-da05-4058-847d-a1ac567bd205', 'fa175f7f-3115-42b5-8866-eff7fb34036a'),
+('ad9126eb-b357-426c-ac67-e580c29fdf0b', 'fa175f7f-3115-42b5-8866-eff7fb34036a'),
+('da77b50a-c4e9-423f-8531-520a58cc3218', '8aabc939-aa50-4c42-86fe-e76263352737');
 
 -- --------------------------------------------------------
 
@@ -131,16 +137,21 @@ CREATE TABLE `AspNetUsers` (
   `TwoFactorEnabled` tinyint(1) NOT NULL,
   `LockoutEnd` datetime(6) DEFAULT NULL,
   `LockoutEnabled` tinyint(1) NOT NULL,
-  `AccessFailedCount` int(11) NOT NULL
+  `AccessFailedCount` int(11) NOT NULL,
+  `Discriminator` longtext NOT NULL,
+  `nom` longtext DEFAULT NULL,
+  `prenom` longtext DEFAULT NULL,
+  `status` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `AspNetUsers`
 --
 
-INSERT INTO `AspNetUsers` (`Id`, `UserName`, `NormalizedUserName`, `Email`, `NormalizedEmail`, `EmailConfirmed`, `PasswordHash`, `SecurityStamp`, `ConcurrencyStamp`, `PhoneNumber`, `PhoneNumberConfirmed`, `TwoFactorEnabled`, `LockoutEnd`, `LockoutEnabled`, `AccessFailedCount`) VALUES
-('0e14dca1-331a-4485-9aee-50278c36a4a0', 'hicham.hassani@uir.ac.ma', 'HICHAM.HASSANI@UIR.AC.MA', 'hicham.hassani@uir.ac.ma', 'HICHAM.HASSANI@UIR.AC.MA', 1, 'AQAAAAEAACcQAAAAEBf//6XbB3aySi/O0y+hZ887KdWK2dlBHsGSkqBNc55EvVuB4Gm8Ts1kWNP1Iwb1EQ==', 'AF7RKA37KOFMPWL5WQ26RPJRFBVZ4B2D', '7668238e-ba71-4099-b938-a80e8d9d747b', NULL, 0, 0, NULL, 1, 0),
-('a6cda0b4-5e6f-4daf-886a-d3f02cb3c9c2', 'hicham_barakate@hotmail.fr', 'HICHAM_BARAKATE@HOTMAIL.FR', 'hicham_barakate@hotmail.fr', 'HICHAM_BARAKATE@HOTMAIL.FR', 0, 'AQAAAAEAACcQAAAAEPbQgV5rKPOTQ77ZyodbAmhVd+y8ut5vDKr34LNegG9f+rkMupfUYn54/k4ujT2nkw==', 'AEM2MPQGV5FICPPCQSYGGMZDRDFU4FTH', '1a941699-c08d-466a-bc28-990eed985c4d', '0624987272', 0, 0, NULL, 1, 0);
+INSERT INTO `AspNetUsers` (`Id`, `UserName`, `NormalizedUserName`, `Email`, `NormalizedEmail`, `EmailConfirmed`, `PasswordHash`, `SecurityStamp`, `ConcurrencyStamp`, `PhoneNumber`, `PhoneNumberConfirmed`, `TwoFactorEnabled`, `LockoutEnd`, `LockoutEnabled`, `AccessFailedCount`, `Discriminator`, `nom`, `prenom`, `status`) VALUES
+('1def75b3-da05-4058-847d-a1ac567bd205', 'demo_admin@gmail.com', 'DEMO_ADMIN@GMAIL.COM', 'demo_admin@gmail.com', 'DEMO_ADMIN@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEARBHeGzgJ26XAHdRycuOpzlAwq9c/YChyVOVWlHBWBv/3lO0sWGpE2cSggY+WWlPA==', 'ZRUJ3RPEFB4VPBFAV4WSXOZRZ7PZZMZJ', '882b5221-5be5-4d00-b5fb-59b6100776a3', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'AdminNom', 'AdminPrenom', 'a'),
+('ad9126eb-b357-426c-ac67-e580c29fdf0b', 'demo_admin1@gmail.com', 'DEMO_ADMIN1@GMAIL.COM', 'demo_admin1@gmail.com', 'DEMO_ADMIN1@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEJvjjklCPXwBYjmdegThWpKljQYvXbSGQHtCY8n1swn39f1XJZ+TZVCZqViu+L04Ow==', 'RK2XTX637HO5BH27RJLZHPARJXGGKXQW', '1dc1046c-0618-48c0-9c3f-91c8ca5316c0', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'AdminNom', 'AdminPrenom', 'a'),
+('da77b50a-c4e9-423f-8531-520a58cc3218', 'demo_prof@gmail.com', 'DEMO_PROF@GMAIL.COM', 'demo_prof@gmail.com', 'DEMO_PROF@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEP/Oawz7hBV3q6mICMNySfpluuhT9pdt/3PGrOvLWfD1Mo2lcrqNd9dA/2Wcx2OeAA==', 'TJ5BVU6SKMMGVPLM7WGZY6JRQHHHCDCF', 'f27aeb53-8d65-4cd8-8c3e-6736e6f22c0c', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'demoNom', 'demoPrenom', 'p');
 
 -- --------------------------------------------------------
 
@@ -150,8 +161,8 @@ INSERT INTO `AspNetUsers` (`Id`, `UserName`, `NormalizedUserName`, `Email`, `Nor
 
 CREATE TABLE `AspNetUserTokens` (
   `UserId` varchar(255) NOT NULL,
-  `LoginProvider` varchar(128) NOT NULL,
-  `Name` varchar(128) NOT NULL,
+  `LoginProvider` varchar(255) NOT NULL,
+  `Name` varchar(255) NOT NULL,
   `Value` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -168,17 +179,9 @@ CREATE TABLE `Etudiant` (
   `cin` longtext DEFAULT NULL,
   `date_naissance` datetime(6) NOT NULL,
   `email` longtext DEFAULT NULL,
-  `Filierecode_filiere` int(11) NOT NULL,
-  `code_rfid` longtext DEFAULT NULL
+  `code_rfid` longtext DEFAULT NULL,
+  `Filierecode_filiere` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `Etudiant`
---
-
-INSERT INTO `Etudiant` (`code_etudiant`, `nom`, `prenom`, `cin`, `date_naissance`, `email`, `Filierecode_filiere`, `code_rfid`) VALUES
-(1, 'Hassani', 'Hicham', 'AE183650', '2020-03-26 00:00:00.000000', 'xxxxx@hotmail.fr', 3, 'rfid1'),
-(2, 'zayed', 'opac', 'A2198', '1996-12-09 00:00:00.000000', 'zayed@hotmail.com', 2, 'rfid2');
 
 -- --------------------------------------------------------
 
@@ -196,8 +199,6 @@ CREATE TABLE `Filiere` (
 --
 
 INSERT INTO `Filiere` (`code_filiere`, `libele_filiere`) VALUES
-(1, 'GC'),
-(2, 'GM'),
 (3, 'GI');
 
 -- --------------------------------------------------------
@@ -219,9 +220,7 @@ CREATE TABLE `Matiere` (
 --
 
 INSERT INTO `Matiere` (`code_matiere`, `libele_matiere`, `nbr_heures`, `Filierecode_filiere`, `Professeurcode_professeur`) VALUES
-(1, 'Dev web', 40, 3, 1),
-(2, 'oracle', 30, 2, 2),
-(3, 'dev mobile', 45, 3, 2);
+(3, 'Dev web', 35, 3, 8);
 
 -- --------------------------------------------------------
 
@@ -233,16 +232,17 @@ CREATE TABLE `Professeur` (
   `code_professeur` int(11) NOT NULL,
   `nom` longtext DEFAULT NULL,
   `prenom` longtext DEFAULT NULL,
-  `email` longtext DEFAULT NULL
+  `email` longtext DEFAULT NULL,
+  `telephone` longtext DEFAULT NULL,
+  `code_user` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `Professeur`
 --
 
-INSERT INTO `Professeur` (`code_professeur`, `nom`, `prenom`, `email`) VALUES
-(1, 'Hassani', 'Hicham', 'hicham.hassani@uir.ac.ma'),
-(2, 'Sam', 'Notra', 'sam@hotmail.com');
+INSERT INTO `Professeur` (`code_professeur`, `nom`, `prenom`, `email`, `telephone`, `code_user`) VALUES
+(8, 'demoNom', 'demoPrenom', 'demo_prof@gmail.com', NULL, 'da77b50a-c4e9-423f-8531-520a58cc3218');
 
 -- --------------------------------------------------------
 
@@ -261,8 +261,8 @@ CREATE TABLE `Salle` (
 
 INSERT INTO `Salle` (`code_salle`, `numero_salle`) VALUES
 (1, 'A1'),
-(3, 'B4'),
-(4, 'C5');
+(2, 'B4'),
+(3, 'C5');
 
 -- --------------------------------------------------------
 
@@ -284,14 +284,7 @@ CREATE TABLE `Seance` (
 --
 
 INSERT INTO `Seance` (`code_seance`, `libele_seance`, `date_debut`, `date_fin`, `Matierecode_matiere`, `Sallecode_salle`) VALUES
-(1, 'Seance Dev Web', '2020-03-21 10:00:00.000000', '2020-03-21 00:00:00.000000', 1, 3),
-(3, 'seance oracle', '2020-03-26 09:00:00.000000', '2020-03-26 10:00:00.000000', 2, 3),
-(4, 'TestSeance', '2020-03-27 08:00:00.000000', '2020-03-27 10:30:00.000000', 1, 4),
-(6, 'SeanceO', '2020-04-05 08:00:00.000000', '2020-04-05 10:00:00.000000', 1, 1),
-(9, 'testAdd', '2020-03-29 09:00:00.000000', '2020-03-29 10:00:00.000000', 2, 3),
-(11, 'btnAdd', '2020-03-29 00:00:00.000000', '2020-03-29 14:00:00.000000', 2, 3),
-(12, 'btnAdd', '2020-04-01 08:00:00.000000', '2020-04-01 10:00:00.000000', 2, 3),
-(14, 'lasttestbtn', '2020-03-09 16:00:00.000000', '2020-03-09 18:00:00.000000', 2, 4);
+(3, 'Dev Web', '2020-04-19 14:00:00.000000', '2020-04-19 16:00:00.000000', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -309,8 +302,8 @@ CREATE TABLE `__EFMigrationsHistory` (
 --
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`) VALUES
-('20200320184319_InitialCreate', '3.1.2'),
-('20200326124754_rfidAttr', '3.1.2');
+('20200402032800_CreateDb', '3.1.2'),
+('20200410005249_ProfUser', '3.1.2');
 
 --
 -- Index pour les tables déchargées
@@ -399,7 +392,8 @@ ALTER TABLE `Matiere`
 -- Index pour la table `Professeur`
 --
 ALTER TABLE `Professeur`
-  ADD PRIMARY KEY (`code_professeur`);
+  ADD PRIMARY KEY (`code_professeur`),
+  ADD UNIQUE KEY `IX_Professeur_code_user` (`code_user`);
 
 --
 -- Index pour la table `Salle`
@@ -429,7 +423,7 @@ ALTER TABLE `__EFMigrationsHistory`
 -- AUTO_INCREMENT pour la table `Abscence`
 --
 ALTER TABLE `Abscence`
-  MODIFY `code_abs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `code_abs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `AspNetRoleClaims`
@@ -447,7 +441,7 @@ ALTER TABLE `AspNetUserClaims`
 -- AUTO_INCREMENT pour la table `Etudiant`
 --
 ALTER TABLE `Etudiant`
-  MODIFY `code_etudiant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `code_etudiant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `Filiere`
@@ -465,19 +459,19 @@ ALTER TABLE `Matiere`
 -- AUTO_INCREMENT pour la table `Professeur`
 --
 ALTER TABLE `Professeur`
-  MODIFY `code_professeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `code_professeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `Salle`
 --
 ALTER TABLE `Salle`
-  MODIFY `code_salle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `code_salle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `Seance`
 --
 ALTER TABLE `Seance`
-  MODIFY `code_seance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `code_seance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
@@ -487,7 +481,9 @@ ALTER TABLE `Seance`
 -- Contraintes pour la table `Abscence`
 --
 ALTER TABLE `Abscence`
-  ADD CONSTRAINT `FK_Abscence_Professeur_professeurcode_professeur` FOREIGN KEY (`professeurcode_professeur`) REFERENCES `Professeur` (`code_professeur`);
+  ADD CONSTRAINT `FK_Abscence_Etudiant_etudiantcode_etudiant` FOREIGN KEY (`etudiantcode_etudiant`) REFERENCES `Etudiant` (`code_etudiant`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Abscence_Professeur_professeurcode_professeur` FOREIGN KEY (`professeurcode_professeur`) REFERENCES `Professeur` (`code_professeur`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Abscence_Seance_seancecode_seance` FOREIGN KEY (`seancecode_seance`) REFERENCES `Seance` (`code_seance`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `AspNetRoleClaims`
@@ -532,6 +528,12 @@ ALTER TABLE `Etudiant`
 ALTER TABLE `Matiere`
   ADD CONSTRAINT `FK_Matiere_Filiere_Filierecode_filiere` FOREIGN KEY (`Filierecode_filiere`) REFERENCES `Filiere` (`code_filiere`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Matiere_Professeur_Professeurcode_professeur` FOREIGN KEY (`Professeurcode_professeur`) REFERENCES `Professeur` (`code_professeur`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `Professeur`
+--
+ALTER TABLE `Professeur`
+  ADD CONSTRAINT `FK_Professeur_AspNetUsers_code_user` FOREIGN KEY (`code_user`) REFERENCES `AspNetUsers` (`Id`);
 
 --
 -- Contraintes pour la table `Seance`

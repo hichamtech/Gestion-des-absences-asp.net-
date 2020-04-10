@@ -6,10 +6,25 @@
     <title>@ViewData["Title"] - WebApp1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- VENDOR CSS -->
+	<link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="~/assets/vendor/linearicons/style.css">
+	<link rel="stylesheet" href="~/assets/vendor/chartist/css/chartist-custom.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="~/assets/css/main.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="~/assets/img/favicon.png">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">WebApp1</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -17,34 +32,44 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        </nav>*@
+   
+   <div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - WebApp1 - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+                    @RenderBody()
+		</div>
 
+   <div class="clearfix"></div>
+		<footer>
+			<div class="container-fluid">
+				<p class="copyright">&copy; 2020  Controle Assiduite | EMSI</p>
+			</div>
+		</footer>
+	</div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<!-- Javascript -->
+	<script src="~/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="~/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="~/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="~/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="~/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="~/assets/scripts/klorofil-common.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+	
 
     @RenderSection("Scripts", required: false)
 </body>

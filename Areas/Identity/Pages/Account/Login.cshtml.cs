@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ProjetAspCore.Models;
 using ProjetAspCore.Data;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ProjetAspCore.Areas.Identity.Pages.Account
 {
@@ -22,15 +25,21 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private RoleManager<IdentityRole> _roleManager;
 
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, 
+
+
+        public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -76,7 +85,9 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+
+            returnUrl = returnUrl ?? Url.Content("~/Admin/Dashboard");
+
 
             if (ModelState.IsValid)
             {
@@ -85,14 +96,39 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    /*if(User.IsInRole("Admin")){
-                       return RedirectToPage("/Admin/Dashboard/Index");
-;
-                    }*/
-                    
-                  
-                    _logger.LogInformation("User logged in.");
-                    //return LocalRedirect(returnUrl);
+
+                    /* var user = await _userManager.GetUserAsync(HttpContext.User);
+                     IList<Claim> claimsUser = await _userManager.GetClaimsAsync(user);
+                     bool isAdmin = claimsUser.FirstOrDefault(c => c.Value == "Admin") != null;*/
+
+                    var currentUser = await _userManager.GetUserAsync(User);
+                    var isAdmin = currentUser != null && await _userManager.IsInRoleAsync(
+                         currentUser,
+                         "Admin");
+                    var isProf = currentUser != null && await _userManager.IsInRoleAsync(
+                         currentUser,
+                         "Prof");
+                    if (isAdmin)
+                    {
+                        returnUrl = returnUrl ?? Url.Content("~/Admin/Dashboard");
+                        return LocalRedirect(returnUrl);
+
+                    }
+                    if (isProf)
+                    {
+                        returnUrl = returnUrl ?? Url.Content("~/espace_professeur/Dashboard");
+                        return LocalRedirect(returnUrl);
+
+
+                    }
+                    else
+                    {
+                        return LocalRedirect(returnUrl);
+
+                    }
+
+
+
                 }
                 if (result.RequiresTwoFactor)
                 {

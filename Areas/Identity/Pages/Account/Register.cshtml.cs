@@ -19,7 +19,7 @@ using ProjetAspCore.Models;
 
 namespace ProjetAspCore.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
 
     public class RegisterModel : PageModel
     {
@@ -86,11 +86,15 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
 
             public ApplicationUser applicationUser { get; set; }
 
-            public int code_professeur { get; set; }
-            public Professeur Professeur { get; set; }
 
+            [Display(Name = "Nom")]
+            public string nom { get; set; }
+            [Display(Name = "Prenom")]
+            public string prenom { get; set; }
 
-            public SelectList RolesList { get; set; }
+            [Display(Name = "Status")]
+            [Required]
+            public char status { get; set; }
 
 
 
@@ -105,11 +109,6 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
         public async Task OnGetAsync(string returnUrl = null)
         {
 
-            //RolesList = new SelectList(_.Filiere, "code_filiere", "libele_filiere");
-            //RolesList = new SelectList(_roleManager.);
-
-            RolesList = new SelectList(_roleManager.Roles);
-            ProfList = new SelectList(_db.Professeur, "code_professeur", "nom");
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -126,7 +125,10 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
 
                     UserName = Input.Email,
                     Email = Input.Email,
-                    code_professeur = Input.applicationUser.code_professeur
+                    nom = Input.nom,
+                    prenom = Input.prenom,
+                    status = Input.status,
+
 
 
                 };
@@ -144,8 +146,30 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
 
 
                     }
+                    if (user.status == 'a')
+                    {
+                        await _userManager.AddToRoleAsync(user, GestionRoles.AdminUser);
 
-                    await _userManager.AddToRoleAsync(user, GestionRoles.ProfUser);
+                    }
+                    else if (user.status == 'p')
+                    {
+
+                        var prof = new Professeur
+                        {
+                            email = user.Email,
+                            nom = user.nom,
+                            prenom = user.prenom,
+                            code_user = user.Id
+
+
+
+                        };
+                        _db.Professeur.Add(prof);
+                        await _db.SaveChangesAsync();
+
+                        await _userManager.AddToRoleAsync(user, GestionRoles.ProfUser);
+
+                    }
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -167,7 +191,8 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        // return LocalRedirect(returnUrl);
+                        return Page();
                     }
 
                 }
