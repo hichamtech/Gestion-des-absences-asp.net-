@@ -21,6 +21,13 @@ namespace ProjetAspCore.Pages.Etudiants__referenceScriptLibraries
             _context = context;
         }
 
+
+        public string NameSort { get; set; }
+        public string DateSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
+        public PaginatedList<Etudiant> Etudiants { get; set; }
+
         public IList<Etudiant> Etudiant { get; set; }
 
         public int nbr_abs;
@@ -33,15 +40,61 @@ namespace ProjetAspCore.Pages.Etudiants__referenceScriptLibraries
         [BindProperty(SupportsGet = true)]
         public string EtudiantFiliere { get; set; }
 
-        public async Task OnGet()
+        public async Task OnGet(string sortOrder, string searchString, string currentFilter, int? pageIndex)
         {
-            Etudiant = await _context.Etudiant
+
+            CurrentSort = sortOrder;
+
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "prenom" : "filiere";
+            DateSort = sortOrder == "Date" ? "date_desc" : "date_naissance";
+
+
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            IQueryable<Etudiant> studentsIQ = from s in _context.Etudiant
+                                              select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                studentsIQ = studentsIQ.Where(s => s.nom.Contains(searchString)
+                                       || s.prenom.Contains(searchString)
+                                       || s.cin.Contains(searchString)
+                                       );
+            }
+
+            switch (sortOrder)
+            {
+                case "prenom":
+                    studentsIQ = studentsIQ.OrderByDescending(s => s.prenom);
+                    break;
+                case "filiere":
+                    studentsIQ = studentsIQ.OrderBy(s => s.Filiere.libele_filiere);
+                    break;
+                case "date_naissance":
+                    studentsIQ = studentsIQ.OrderByDescending(s => s.date_naissance);
+                    break;
+                default:
+                    studentsIQ = studentsIQ.OrderBy(s => s.nom);
+                    break;
+            }
+            int pageSize = 3;
+            Etudiants = await PaginatedList<Etudiant>.CreateAsync(
+                studentsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+            Etudiant = await studentsIQ
             .Include(c => c.Filiere)
             .Include(a => a.Abscences)
             .Include(d => d.Filiere.Matieres)
-
             .AsNoTracking()
             .ToListAsync();
+
+
 
 
 

@@ -43,8 +43,9 @@
               
                 <label asp-for="Input.status"></label>
                 <select asp-for="Input.status" class="form-control" >
-                    <option value="a"> Admin</option>
                     <option value="p">Professeur</option>
+                    <option value="a"> Admin</option>
+                    
                     </select>
                 <span asp-validation-for="Input.status" class="text-danger"></span>
 

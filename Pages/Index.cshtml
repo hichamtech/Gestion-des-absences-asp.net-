@@ -14,13 +14,15 @@
 					<partial name="_LoginPartial" />
 
 						<div class="logo text-center">
-                            <img src="~/assets/img/logo.png" alt="Klorofil Logo">
+                            <img src="~/assets/img/logo.png" alt="Logo">
                         </div>
 						<div class="user text-center">
 							<img src="~/assets/img/rfid-icon.jpg" class="img-circle" alt="rfid" style="width: 40px;height: 30px;" >
                             <label asp-for="Rfid" class="control-label"></label>
 						</div>
 						<form id="myForm" method="post">
+						<span asp-validation-for="@Model.Rfid" class="text-danger"></span>
+						<span>@Model.Message</span>
 							<div class="input-group">
                                  <input asp-for="Rfid" class="form-control" placeholder="Saisir votre code rfid....."/>
 								<span class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i></button></span>

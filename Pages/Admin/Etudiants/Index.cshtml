@@ -15,33 +15,51 @@
                     <h5 class="card-title" style="text-align: center;color:#676a6d;font-weight: bold;"> Liste des Etudiants</h5>
                     <div class="card-body align-items-center mt-3">
 
-                       <form class="navbar-form navbar-right">
+                       <form class="navbar-form navbar-right" asp-page="./Index" method="get">
 					<div class="input-group">
-						<input type="text" value="" class="form-control" placeholder="Chercher....">
-						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+						<input type="text" value="@Model.CurrentFilter" class="form-control"  name="SearchString" placeholder="Chercher...">
+
+						<span class="input-group-btn"><button type="submit" class="btn btn-primary">Go</button></span>
 					</div>
 				        </form>
-			
+			            <a  asp-page="Create" class="btn btn-primary">Enregistrer un Etudiant</a>
+
                         <table class="table" style="margin-top:20px;">
                             <thead>
+                
                                 <tr>
+
              <th>
+
                 @Html.DisplayNameFor(model => model.Etudiant[0].nom)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Etudiant[0].prenom)
+
+                 <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Etudiant[0].prenom)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Etudiant[0].cin)
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Etudiant[0].date_naissance)
+                
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model =>model.Etudiant[0].date_naissance)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Etudiant[0].email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Etudiant[0].Filiere.libele_filiere)
+        
+                 <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Etudiant[0].Filiere.libele_filiere)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Etudiant[0].code_rfid)
@@ -101,8 +119,26 @@
              }
         </tbody>
     </table>
+    @{
+    var prevDisabled = !Model.Etudiants.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Etudiants.HasNextPage ? "disabled" : "";
+}
 
-            <a asp-page="Create" class="btn btn-primary">Enregistrer un Etudiant</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Etudiants.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Précedent
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Etudiants.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Suivant
+</a>
+<br/>
 
                     </div>
                 </div>

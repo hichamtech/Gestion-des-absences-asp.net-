@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : ven. 10 avr. 2020 à 03:50
+-- Généré le : sam. 11 avr. 2020 à 02:34
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.3
 
@@ -113,7 +113,11 @@ CREATE TABLE `AspNetUserRoles` (
 
 INSERT INTO `AspNetUserRoles` (`UserId`, `RoleId`) VALUES
 ('1def75b3-da05-4058-847d-a1ac567bd205', 'fa175f7f-3115-42b5-8866-eff7fb34036a'),
+('477f1a4c-3459-4297-b693-c774b189d686', '8aabc939-aa50-4c42-86fe-e76263352737'),
+('9e9791a7-5b4e-4cae-80e7-85e96ba71b98', '8aabc939-aa50-4c42-86fe-e76263352737'),
 ('ad9126eb-b357-426c-ac67-e580c29fdf0b', 'fa175f7f-3115-42b5-8866-eff7fb34036a'),
+('c76eb8cf-c7b5-4957-a533-c44cd36d37e4', '8aabc939-aa50-4c42-86fe-e76263352737'),
+('ca454eac-cd26-45a6-8122-b3c33c227d03', '8aabc939-aa50-4c42-86fe-e76263352737'),
 ('da77b50a-c4e9-423f-8531-520a58cc3218', '8aabc939-aa50-4c42-86fe-e76263352737');
 
 -- --------------------------------------------------------
@@ -149,8 +153,12 @@ CREATE TABLE `AspNetUsers` (
 --
 
 INSERT INTO `AspNetUsers` (`Id`, `UserName`, `NormalizedUserName`, `Email`, `NormalizedEmail`, `EmailConfirmed`, `PasswordHash`, `SecurityStamp`, `ConcurrencyStamp`, `PhoneNumber`, `PhoneNumberConfirmed`, `TwoFactorEnabled`, `LockoutEnd`, `LockoutEnabled`, `AccessFailedCount`, `Discriminator`, `nom`, `prenom`, `status`) VALUES
-('1def75b3-da05-4058-847d-a1ac567bd205', 'demo_admin@gmail.com', 'DEMO_ADMIN@GMAIL.COM', 'demo_admin@gmail.com', 'DEMO_ADMIN@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEARBHeGzgJ26XAHdRycuOpzlAwq9c/YChyVOVWlHBWBv/3lO0sWGpE2cSggY+WWlPA==', 'ZRUJ3RPEFB4VPBFAV4WSXOZRZ7PZZMZJ', '882b5221-5be5-4d00-b5fb-59b6100776a3', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'AdminNom', 'AdminPrenom', 'a'),
+('1def75b3-da05-4058-847d-a1ac567bd205', 'demo_admin@gmail.com', 'DEMO_ADMIN@GMAIL.COM', 'demo_admin@gmail.com', 'DEMO_ADMIN@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEARBHeGzgJ26XAHdRycuOpzlAwq9c/YChyVOVWlHBWBv/3lO0sWGpE2cSggY+WWlPA==', 'L5FCM74TGABCGJUFC622OL3CGFOQABEN', '1e68d5b4-857c-49ad-92f4-2fa532a047f2', '0624987272', 0, 0, NULL, 1, 0, 'ApplicationUser', 'AdminNom', 'AdminPrenom', 'a'),
+('477f1a4c-3459-4297-b693-c774b189d686', 'Professeur4@gmail.com', 'PROFESSEUR4@GMAIL.COM', 'Professeur4@gmail.com', 'PROFESSEUR4@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEAnvu478hweAi/Ag3PIFku77cqTP/v54Hl7AV7Q+dAOJyAwbxunEVQQHFBpKU+TZpg==', 'CCG4TFNUQ3SW7AAU3MVGNKUMPVPVBOYK', 'd908dd4e-4a6e-4790-8d39-5c5d7193d7d9', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'Professeur4', 'Professeur4', 'p'),
+('9e9791a7-5b4e-4cae-80e7-85e96ba71b98', 'Professeur3@gmail.com', 'PROFESSEUR3@GMAIL.COM', 'Professeur3@gmail.com', 'PROFESSEUR3@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEBAhs3LhFmRAje9VvjfvaXZWsaBzz0LF0xXn29nP1usj0QMqo4ZM9pIasclTVsg+Uw==', 'YVOPJLS2ONHBTLNINUF72HPRJMSYYWMM', '78f5b76b-9e5f-4005-be33-c8e5ee516133', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'Professeur3', 'Professeur3', 'p'),
 ('ad9126eb-b357-426c-ac67-e580c29fdf0b', 'demo_admin1@gmail.com', 'DEMO_ADMIN1@GMAIL.COM', 'demo_admin1@gmail.com', 'DEMO_ADMIN1@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEJvjjklCPXwBYjmdegThWpKljQYvXbSGQHtCY8n1swn39f1XJZ+TZVCZqViu+L04Ow==', 'RK2XTX637HO5BH27RJLZHPARJXGGKXQW', '1dc1046c-0618-48c0-9c3f-91c8ca5316c0', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'AdminNom', 'AdminPrenom', 'a'),
+('c76eb8cf-c7b5-4957-a533-c44cd36d37e4', 'professeur2@gmail.com', 'PROFESSEUR2@GMAIL.COM', 'professeur2@gmail.com', 'PROFESSEUR2@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEF0K4ws2yjTg9tSf585VgNwPkOWF1chslWYIy+rC1KqInTa99seNqxGC2wrvxjEQxQ==', '3IRZZ2Z3STX5W67MXIHD5AISUYI7YQGM', 'a2948af5-ba79-43fa-8c08-896f9abe512c', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'Professeur2', 'professeur2', 'p'),
+('ca454eac-cd26-45a6-8122-b3c33c227d03', 'prof1@gmail.com', 'PROF1@GMAIL.COM', 'prof1@gmail.com', 'PROF1@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAENq8yNN/eBY5Or+ioX+WGEopw1Ox3z1u6G6OfIan9jrsmmyP+mJqtkPApdTVB0Vvuw==', '46OAG5YYWLQBTWN3HOJG4CO76KII7GIR', '37de19d9-07a7-4a50-b5e0-ff7ece3c206f', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'prof1', 'prof1', 'p'),
 ('da77b50a-c4e9-423f-8531-520a58cc3218', 'demo_prof@gmail.com', 'DEMO_PROF@GMAIL.COM', 'demo_prof@gmail.com', 'DEMO_PROF@GMAIL.COM', 0, 'AQAAAAEAACcQAAAAEP/Oawz7hBV3q6mICMNySfpluuhT9pdt/3PGrOvLWfD1Mo2lcrqNd9dA/2Wcx2OeAA==', 'TJ5BVU6SKMMGVPLM7WGZY6JRQHHHCDCF', 'f27aeb53-8d65-4cd8-8c3e-6736e6f22c0c', NULL, 0, 0, NULL, 1, 0, 'ApplicationUser', 'demoNom', 'demoPrenom', 'p');
 
 -- --------------------------------------------------------
@@ -183,6 +191,19 @@ CREATE TABLE `Etudiant` (
   `Filierecode_filiere` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `Etudiant`
+--
+
+INSERT INTO `Etudiant` (`code_etudiant`, `nom`, `prenom`, `cin`, `date_naissance`, `email`, `code_rfid`, `Filierecode_filiere`) VALUES
+(6, 'Hassani', 'Hicham', 'AE183650', '1997-09-18 00:00:00.000000', 'hicham_barakate@hotmail.fr', 'AE183650-3-13', 3),
+(7, 'Lazar', 'Widyane', 'A52971', '1995-03-21 00:00:00.000000', 'Lazarwidyane@gmail.com', 'A52971-3-55', 3),
+(8, 'Bellahcen', 'Saad', 'A2858C', '1997-09-10 00:00:00.000000', 'Saadbellahcen@gmail.com', 'A2858C-5-83', 5),
+(9, 'Nasri', 'Khalil', 'AC5842', '1998-03-28 00:00:00.000000', 'nasrikhalil@gmail.com', 'AC5842-4-99', 4),
+(10, 'Erraouihi', 'Youness', 'A5851A', '1998-04-15 00:00:00.000000', 'younesserraouihi@gmail.com', 'A5851A-5-76', 5),
+(11, 'Malih', 'Hamza', 'C5841', '1997-04-10 00:00:00.000000', 'malihamza@gmail.com', 'C5841-3-24', 3),
+(12, 'Kadmiri', 'Chaimae', 'A2951', '1997-09-14 00:00:00.000000', 'chaimaekadmiri@gmail.com', 'A2951-6-34', 6);
+
 -- --------------------------------------------------------
 
 --
@@ -199,7 +220,10 @@ CREATE TABLE `Filiere` (
 --
 
 INSERT INTO `Filiere` (`code_filiere`, `libele_filiere`) VALUES
-(3, 'GI');
+(3, 'GI'),
+(4, 'GC'),
+(5, 'GM'),
+(6, 'AD');
 
 -- --------------------------------------------------------
 
@@ -220,7 +244,11 @@ CREATE TABLE `Matiere` (
 --
 
 INSERT INTO `Matiere` (`code_matiere`, `libele_matiere`, `nbr_heures`, `Filierecode_filiere`, `Professeurcode_professeur`) VALUES
-(3, 'Dev web', 35, 3, 8);
+(5, 'Dev web', 35, 3, 10),
+(6, 'Résistance des Materiaux', 30, 4, 12),
+(7, 'Audit', 55, 6, 10),
+(8, 'Electronic', 50, 5, 10),
+(9, 'Android', 40, 3, 9);
 
 -- --------------------------------------------------------
 
@@ -242,7 +270,11 @@ CREATE TABLE `Professeur` (
 --
 
 INSERT INTO `Professeur` (`code_professeur`, `nom`, `prenom`, `email`, `telephone`, `code_user`) VALUES
-(8, 'demoNom', 'demoPrenom', 'demo_prof@gmail.com', NULL, 'da77b50a-c4e9-423f-8531-520a58cc3218');
+(8, 'demoNom', 'demoPrenom', 'demo_prof@gmail.com', NULL, 'da77b50a-c4e9-423f-8531-520a58cc3218'),
+(9, 'prof1', 'prof1', 'prof1@gmail.com', NULL, 'ca454eac-cd26-45a6-8122-b3c33c227d03'),
+(10, 'Professeur2', 'professeur2', 'professeur2@gmail.com', NULL, 'c76eb8cf-c7b5-4957-a533-c44cd36d37e4'),
+(11, 'Professeur3', 'Professeur3', 'Professeur3@gmail.com', NULL, '9e9791a7-5b4e-4cae-80e7-85e96ba71b98'),
+(12, 'Professeur4', 'Professeur4', 'Professeur4@gmail.com', NULL, '477f1a4c-3459-4297-b693-c774b189d686');
 
 -- --------------------------------------------------------
 
@@ -262,7 +294,9 @@ CREATE TABLE `Salle` (
 INSERT INTO `Salle` (`code_salle`, `numero_salle`) VALUES
 (1, 'A1'),
 (2, 'B4'),
-(3, 'C5');
+(3, 'C5'),
+(4, 'B1'),
+(5, 'A2');
 
 -- --------------------------------------------------------
 
@@ -284,7 +318,10 @@ CREATE TABLE `Seance` (
 --
 
 INSERT INTO `Seance` (`code_seance`, `libele_seance`, `date_debut`, `date_fin`, `Matierecode_matiere`, `Sallecode_salle`) VALUES
-(3, 'Dev Web', '2020-04-19 14:00:00.000000', '2020-04-19 16:00:00.000000', 3, 1);
+(4, 'Seance Dev Web', '2020-04-11 08:10:00.000000', '2020-04-11 10:00:00.000000', 5, 1),
+(5, 'RDM1', '2020-04-13 08:00:00.000000', '2020-04-13 10:00:00.000000', 6, 3),
+(6, 'Adt1', '2020-04-14 10:00:00.000000', '2020-04-14 00:00:00.000000', 7, 3),
+(8, 'Andr1', '2020-04-12 16:00:00.000000', '2020-04-12 18:00:00.000000', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -423,7 +460,7 @@ ALTER TABLE `__EFMigrationsHistory`
 -- AUTO_INCREMENT pour la table `Abscence`
 --
 ALTER TABLE `Abscence`
-  MODIFY `code_abs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `code_abs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `AspNetRoleClaims`
@@ -441,37 +478,37 @@ ALTER TABLE `AspNetUserClaims`
 -- AUTO_INCREMENT pour la table `Etudiant`
 --
 ALTER TABLE `Etudiant`
-  MODIFY `code_etudiant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `code_etudiant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `Filiere`
 --
 ALTER TABLE `Filiere`
-  MODIFY `code_filiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `code_filiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `Matiere`
 --
 ALTER TABLE `Matiere`
-  MODIFY `code_matiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `code_matiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `Professeur`
 --
 ALTER TABLE `Professeur`
-  MODIFY `code_professeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `code_professeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `Salle`
 --
 ALTER TABLE `Salle`
-  MODIFY `code_salle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `code_salle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `Seance`
 --
 ALTER TABLE `Seance`
-  MODIFY `code_seance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `code_seance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Contraintes pour les tables déchargées

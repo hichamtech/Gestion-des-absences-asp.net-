@@ -171,7 +171,7 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
 
                     }
 
-                    _logger.LogInformation("User created a new account with password.");
+
 
                     /* var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                      code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -190,9 +190,10 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        // return LocalRedirect(returnUrl);
-                        return Page();
+                        // await _signInManager.SignInAsync(user, isPersistent: false);
+                        returnUrl = returnUrl ?? Url.Content("~/Admin/Dashboard");
+                        return LocalRedirect(returnUrl);
+
                     }
 
                 }
@@ -200,6 +201,8 @@ namespace ProjetAspCore.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                _logger.LogInformation("User created a new account with password.");
+                ;
 
             }
 

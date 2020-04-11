@@ -101,6 +101,7 @@ namespace ProjetAspCore
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+
             });
         }
 

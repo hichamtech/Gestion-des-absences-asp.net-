@@ -18,7 +18,10 @@ namespace ProjetAspCore.Pages
 
         [BindProperty]
         [Display(Name = "Code Rfid")]
+        [Required]
         public string Rfid { get; set; }
+
+        public string Message { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, ProjetAspCore.Data.ApplicationDbContext context)
         {
@@ -41,20 +44,36 @@ namespace ProjetAspCore.Pages
                 return Page();
             }
 
+
+
             var idEtudiant = _context.Etudiant.Where(e => e.code_rfid == Rfid).FirstOrDefault().code_etudiant;
+
 
             var codeF = _context.Etudiant.Where(e => e.code_rfid == Rfid).FirstOrDefault().Filierecode_filiere;
             var codeM = _context.Matiere.Where(m => m.Filierecode_filiere == codeF).FirstOrDefault().code_matiere;
             var codeP = _context.Matiere.Where(p => p.Filierecode_filiere == codeF).FirstOrDefault().Professeurcode_professeur;
             var codeS = _context.Seance.Where(s => s.Matierecode_matiere == codeM).FirstOrDefault().code_seance;
 
-            var abs = new Abscence() { date_abs = DateTime.Now, etudiantcode_etudiant = idEtudiant, seancecode_seance = codeS, professeurcode_professeur = codeP };
+
+            if (!string.IsNullOrEmpty(Rfid))
+
+            {
+                var abs = new Abscence() { date_abs = DateTime.Now, etudiantcode_etudiant = idEtudiant, seancecode_seance = codeS, professeurcode_professeur = codeP };
+                _context.Abscence.Add(abs);
+                await _context.SaveChangesAsync();
+                Message = "Checked";
+
+            }
+            else
+            {
+                Message = "Erreur";
+
+            }
 
 
-            _context.Abscence.Add(abs);
-            await _context.SaveChangesAsync();
 
-            return RedirectToPage("./");
+            return Page();
+
 
 
         }

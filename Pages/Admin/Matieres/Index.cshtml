@@ -69,9 +69,9 @@
               <td>
                 @Html.DisplayFor(modelItem => item.Professeur.FullName)
             </td>
-            <td>@nbrabs</td>
+            <td>@Model.nbr_abs</td>
             <td>
-                @String.Format("{0:P0}",@item.getTaux(nbrh,nbrabs) )
+               @( (Model.nbr_abs * 100)/item.nbr_heures)%
             </td>
 
                                         <td>

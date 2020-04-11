@@ -12,7 +12,7 @@ using ProjetAspCore.Models;
 
 namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly ProjetAspCore.Data.ApplicationDbContext _context;
@@ -22,28 +22,34 @@ namespace ProjetAspCore.Pages.MAtieres__referenceScriptLibraries
             _context = context;
         }
 
-        public IList<Matiere> Matiere { get;set; }
-
+        public IList<Matiere> Matiere { get; set; }
+        public float nbr_abs { get; set; }
         public async Task OnGetAsync()
         {
-            
-           var nbrheure = _context.Matiere.Select(e => e.nbr_heures);
 
-          // var listematier = _context.Matiere.FirstOrDefault().code_matiere;
-          // var listematier = _context.Matiere.FirstOrDefault().code_matiere;
-           // var abs = _context.Abscence.Where(e => e.seance.Matierecode_matiere == )
-             
+            var nbrheure = _context.Matiere.Select(e => e.nbr_heures);
+
+            // var listematier = _context.Matiere.FirstOrDefault().code_matiere;
+            // var listematier = _context.Matiere.FirstOrDefault().code_matiere;
+            // var abs = _context.Abscence.Where(e => e.seance.Matierecode_matiere == )
+
             //@(( ((item.Seances.Select(a => a.Abscences).Count() * 2 ) * item.nbr_heures)   )) %
-
-             
-           
-            
 
             Matiere = await _context.Matiere
             .Include(c => c.Filiere)
-            .Include(p => p.Professeur )
+            .Include(p => p.Professeur)
             .Include(a => a.Seances)
             .ToListAsync();
+
+            nbr_abs = _context.Etudiant
+               .Where(c => !_context.Abscence
+              .Select(b => b.etudiantcode_etudiant)
+               .Contains(c.code_etudiant) && c.Filiere.Matieres.FirstOrDefault().code_matiere == Matiere.FirstOrDefault().code_matiere
+
+
+               )
+
+               .Count();
         }
     }
 }

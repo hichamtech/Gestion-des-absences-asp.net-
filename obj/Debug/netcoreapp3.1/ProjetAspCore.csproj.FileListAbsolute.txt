@@ -263,3 +263,4 @@
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_AdminLayout.cshtml.g.cs
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/espace_professeur/Dashboard/Index.cshtml.g.cs
 /home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/Routes.cshtml.g.cs
+/home/hicham/ProjetAspCore/obj/Debug/netcoreapp3.1/Razor/Pages/espace_professeur/Dashboard/Details.cshtml.g.cs

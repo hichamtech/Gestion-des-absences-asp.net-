@@ -21,9 +21,16 @@ namespace ProjetAspCore.Page
         private readonly ProjetAspCore.Data.ApplicationDbContext _context;
         public IList<Matiere> Matiere { get; set; }
         public IList<Abscence> Abscence { get; set; }
-
         public IList<Seance> Seances { get; set; }
-        // public IList<Etudiant> Etudiant { get; set; }
+
+        public IList<Etudiant> Etudiants { get; set; }
+
+        public int nbr_matiere { get; set; }
+
+        public int nbr_seance { get; set; }
+
+
+        public float nbr_abs { get; set; }
         public DashboardModel(ILogger<DashboardModel> logger, UserManager<IdentityUser> userManager, ProjetAspCore.Data.ApplicationDbContext context)
         {
             _logger = logger;
@@ -34,6 +41,13 @@ namespace ProjetAspCore.Page
         {
             var userId = _userManager.GetUserId(User);
             var profId = _context.Professeur.Where(e => e.User.Id == userId).FirstOrDefault().code_professeur;
+
+            //GET NOMBRE MATIERE PROFESSEUR
+            nbr_matiere = _context.Matiere.Where(e => e.Professeurcode_professeur == profId).Count();
+
+            //GET NOMBRE SEANCES PROFESSEUR
+            nbr_seance = _context.Seance.Where(e => e.Matiere.Professeurcode_professeur == profId).Count();
+
 
             //Matiéres info
             Matiere = await _context.Matiere
@@ -55,15 +69,15 @@ namespace ProjetAspCore.Page
                                     where !_context.Abscence.Any(f => f.etudiantcode_etudiant == Etudiant.code_etudiant && f.professeurcode_professeur == profId)
                                     select Etudiant.nom).ToList();*/
 
-            ViewData["absence"] = _context.Etudiant
-                      .Where(c => !_context.Abscence
-                  .Select(b => b.etudiantcode_etudiant)
-                      .Contains(c.code_etudiant)
-                      && c.Abscences.FirstOrDefault().professeurcode_professeur == profId
-                      )
-                      .Include(e => e.Filiere)
-                      .Include(e => e.Abscences)
-                      .ToList();
+            /* ViewData["absence"] = _context.Etudiant
+                       .Where(c => !_context.Abscence
+                   .Select(b => b.etudiantcode_etudiant)
+                       .Contains(c.code_etudiant)
+                       && c.Abscences.FirstOrDefault().professeurcode_professeur == profId
+                       )
+                       .Include(e => e.Filiere)
+                       .Include(e => e.Abscences)
+                       .ToList();*/
 
             /*  ViewData["absence"] = _context.Etudiant
                        .Where(c => !_context.Abscence
@@ -79,8 +93,30 @@ namespace ProjetAspCore.Page
                     .Include(m => Matiere)
                     .ToList();
 
-            //       
+            //    
 
+            //Liste Absecence 
+            Etudiants = _context.Etudiant
+                    .Where(c => !_context.Abscence
+                   .Select(b => b.etudiantcode_etudiant)
+                    .Contains(c.code_etudiant)
+                    && c.Filiere.Matieres.FirstOrDefault().Professeurcode_professeur == profId
+
+                    )
+                    .Include(e => e.Filiere)
+                    .Include(e => e.Abscences)
+                    .Include(e => e.Filiere.Matieres)
+                    .ToList();
+            //calcul taux abs dans matiere
+            nbr_abs = _context.Etudiant
+                   .Where(c => !_context.Abscence
+                  .Select(b => b.etudiantcode_etudiant)
+                   .Contains(c.code_etudiant)
+                   && c.Filiere.Matieres.FirstOrDefault().Professeurcode_professeur == profId && c.Filiere.Matieres.FirstOrDefault().code_matiere == Matiere.FirstOrDefault().code_matiere
+
+                   )
+
+                   .Count();
 
 
         }
