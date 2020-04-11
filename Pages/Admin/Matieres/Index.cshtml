@@ -38,9 +38,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Matiere[0].Professeur.FullName)
             </th>
-            <th>Nombre Abscences</th>
+            @*<th>Nombre Abscences</th*@>
             <th>Taux Abscences</th>
-                          
                                     <th>Actions</th>
                                     <th></th>
                                 </tr>
@@ -69,7 +68,7 @@
               <td>
                 @Html.DisplayFor(modelItem => item.Professeur.FullName)
             </td>
-            <td>@Model.nbr_abs</td>
+            @*<td>@Model.nbr_abs</td>*@
             <td>
                @( (Model.nbr_abs * 100)/item.nbr_heures)%
             </td>

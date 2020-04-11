@@ -72,7 +72,7 @@ namespace ProjetAspCore.Pages
 
 
 
-            return Page();
+            return RedirectToPage("./Index");
 
 
 

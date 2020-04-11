@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : sam. 11 avr. 2020 à 02:34
+-- Généré le : sam. 11 avr. 2020 à 02:57
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.3
 
@@ -35,6 +35,15 @@ CREATE TABLE `Abscence` (
   `seancecode_seance` int(11) NOT NULL,
   `professeurcode_professeur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `Abscence`
+--
+
+INSERT INTO `Abscence` (`code_abs`, `date_abs`, `etudiantcode_etudiant`, `seancecode_seance`, `professeurcode_professeur`) VALUES
+(8, '2020-04-11 01:49:28.799543', 6, 4, 10),
+(9, '2020-04-11 01:50:10.220690', 7, 4, 10),
+(10, '2020-04-11 01:54:55.719830', 12, 6, 10);
 
 -- --------------------------------------------------------
 
@@ -460,7 +469,7 @@ ALTER TABLE `__EFMigrationsHistory`
 -- AUTO_INCREMENT pour la table `Abscence`
 --
 ALTER TABLE `Abscence`
-  MODIFY `code_abs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `code_abs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `AspNetRoleClaims`
